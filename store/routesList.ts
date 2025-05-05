@@ -106,138 +106,49 @@ export const paths: Path[] = [
 export const menuItems: SidebarOption[] = [
   {
     name: "home",
-    label: "Inicio",
-    href: "/",
+    label: "Dashboard",
+    href: "/admin",
     icon: dynamic(() => import("lucide-react").then((mod) => mod.Home)),
   },
   {
-    name: "reclamaciones",
-    label: "Reclamaciones",
-    icon: dynamic(() => import("lucide-react").then((mod) => mod.FileCheck)),
+    name: "sitio-web",
+    label: "Sitio Web",
+    icon: dynamic(() => import("lucide-react").then((mod) => mod.Globe)),
     subItems: [
       {
-        name: "nueva-reclamacion",
-        label: "Nueva Reclamación",
-        href: "/nueva-reclamacion",
+        name: "ir-sitio",
+        label: "Ir a sitio",
+        href: "/",
       },
       {
-        name: "reclamaciones",
-        label: "Lista Reclamaciones",
-        href: "/reclamaciones",
-      },      
-      {
-        name: "archivos",
-        label: "Ver Archivadas",
-        href: "/reclamaciones/archivados",
+        name: "edit-home",
+        label: "Editar Inicio",
+        href: "/admin/sw/e/home",
       },
       {
-        name: "generar-archivos",
-        label: "Generar Archivos",
-        href: "/generar-archivos",
-      },
-      {
-        name: "honorarios",
-        label: "Ver Honorarios",
-        href: "/honorarios",
-      },
-      
+        name: "edit-about",
+        label: "Editar Sobre Nosotros",
+        href: "/admin/sw/e/about",
+      },    
     ],
   },
   {
-    name: "listados",
-    label: "Listados",
-    icon: dynamic(() => import("lucide-react").then((mod) => mod.Book)),
-    subItems: [
-      {
-        name: "pacientes",
-        label: "Pacientes",
-        href: "/admin/pacientes",
-      },
-      {
-        name: "medicos",
-        label: "Médicos",
-        href: "/admin/medicos",
-      },
-      {
-        name: "tarifario",
-        label: "Tarifario",
-        href: "/admin/tarifario",
-      },
-      // {
-      //   name: "seguros",
-      //   label: "Conf. Seguros",
-      //   href: "/admin/config-seguros",
-      // },
-    ],
+    name: "medicos",
+    label: "Medicos",
+    icon: dynamic(() => import("lucide-react").then((mod) => mod.Users)),
+    href: "/admin/medicos",
   },
   {
-    name: "administrativo",
-    label: "Administrativo",
-    icon: dynamic(() => import("lucide-react").then((mod) => mod.User)),
-    subItems: [
-      {
-        name: "dependencia",
-        label: "Dependencias",
-        href: "/admin/dependencias",
-      },
-      {
-        name: "seguros",
-        label: "Tipos de Seguro",
-        href: "/admin/seguros",
-      },
-      {
-        name: "beneficiarios",
-        label: "Tipos de Beneficiarios",
-        href: "/admin/beneficiarios",
-      },
-      {
-        name: "diagnosticos",
-        label: "Diagnósticos",
-        href: "/admin/diagnosticos",
-      },
-      {
-        name: "tipos-examenes",
-        label: "Tipos de Examen",
-        href: "/admin/tipo-examenes",
-      },
-      {
-        name: "clasificadores",
-        label: "Clasificadores",
-        href: "/admin/clasificadores",
-      },
-      {
-        name: "especialidades",
-        label: "Especialidades",
-        href: "/admin/especialidad",
-      },
-      {
-        name: "servicios-salud",
-        label: "Servicios de Salud",
-        href: "/admin/servicios-salud",
-      },
-    ],
+    name: "vacantes",
+    label: "Vacantes",
+    icon: dynamic(() => import("lucide-react").then((mod) => mod.Briefcase)),
+    href: "/admin/vacantes",
   },
   {
     name: "perfil-usuario",
     label: "Mi perfil",
-    href: "/perfil-usuario",
+    href: "/admin/perfil-usuario",
     icon: dynamic(() => import("lucide-react").then((mod) => mod.Home)),
   },
-  {
-    name: "configuracion",
-    label: "Configuración",
-    icon: dynamic(() => import("lucide-react").then((mod) => mod.Settings)),
-    subItems: [
-      {
-        name: "empresa",
-        label: "Datos Empresa",
-        href: "/empresa",
-      },
-      {
-        name: "gestion-usuarios",
-        label: "Gestión de Usuario",
-        href: "/admin/gestion-usuarios",
-      },
-    ],
-  },
+ 
 ];

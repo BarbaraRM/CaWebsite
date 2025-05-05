@@ -61,8 +61,8 @@ const Sidebar = ({}) => {
             <Image
               src="/images/logo.png" // ruta desde la carpeta public
               alt="Logo del Hospital"
-              width={isCollapsed ? 50 : 100}
-              height={isCollapsed ? 50 : 100}
+              width={isCollapsed ? 50 : 150}
+              height={isCollapsed ? 50 : 150}
               className="mx-auto transition-transform duration-400"
             />
             <span
@@ -70,13 +70,13 @@ const Sidebar = ({}) => {
                 classNames?.title?.[isCollapsed ? "col" : "open"]
               } `}
             >
-              {isCollapsed ? "SIPCA" : "Sistema Planillaje CA"}
+              {isCollapsed ? "WebCA" : "Website Admin CA"}
             </span>
           </div>
         </div>
 
         <nav className="flex-1 overflow-y-auto pt-2 pb-3">
-          <ul className="space-y-1">
+          <ul className="space-y-3">
             {menuItems.map((item) => (
               <li key={item.name}>
                 {item.href ? (
@@ -88,7 +88,7 @@ const Sidebar = ({}) => {
                     }
                     className={`flex items-center text-sidebar-text w-full ${
                       isCollapsed ? "justify-center" : "justify-between"
-                    } hover:bg-sidebar-hover hover:text-sidebar-active hover:border-l-2 border-sidebar-active px-2 py-2 transition-colors duration-200`}
+                    } hover:bg-sidebar-hover hover:text-sidebar-active hover:border-l-2 border-sidebar-active px-3 py-2 transition-colors duration-200`}
                   >
                     <span className="flex items-center">
                       <item.icon className="h-5 w-5" />
@@ -115,7 +115,7 @@ const Sidebar = ({}) => {
                     }
                     className={`flex items-center text-sidebar-text w-full ${
                       isCollapsed ? "justify-center" : "justify-between"
-                    } hover:bg-sidebar-hover hover:text-sidebar-active hover:border-l-2 border-sidebar-active px-2 py-2 transition-colors duration-200`}
+                    } hover:bg-sidebar-hover hover:text-sidebar-active hover:border-l-2 border-sidebar-active px-3 py-2 transition-colors duration-200`}
                   >
                     <span className="flex items-center">
                       <item.icon className="h-5 w-5" />

@@ -17,8 +17,6 @@ import Breadcrumbs from "./Breadcrumbs";
 export default function Navbar() {
   const pathname = usePathname();
   const { user } = useAuth();
-  const [showChangeSessionDialog, setShowChangeSessionDialog] = useState(false);
-  const [showLogoutDialog, setShowLogoutDialog] = useState(false);
 
   return (
     <header className="sticky top-0 z-50 w-full bg-white">
@@ -33,7 +31,7 @@ export default function Navbar() {
             <div className="hidden md:block text-right">
               <p className="text-sm font-medium leading-tight">{user?.name}</p>
               <p className="text-xs text-muted-foreground leading-tight">
-                {user?.sesion_name}
+                {user?.email}
               </p>
             </div>
 
@@ -56,16 +54,10 @@ export default function Navbar() {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem asChild>
-                  <Link href="/perfil-usuario" className="cursor-pointer">
+                  <Link href="/admin/perfil-usuario" className="cursor-pointer">
                     <User className="mr-2 h-4 w-4" />
                     <span>Mi Perfil</span>
                   </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  onClick={() => setShowChangeSessionDialog(true)}
-                >
-                  <Settings className="mr-2 h-4 w-4" />
-                  <span>Cambiar Sesión</span>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
