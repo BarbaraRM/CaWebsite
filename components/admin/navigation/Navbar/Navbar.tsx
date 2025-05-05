@@ -24,16 +24,17 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 w-full bg-white">
       <div className="flex-1 px-4 flex h-12 items-center justify-between">
         <div className="flex items-center gap-2 md:gap-4">
-          <Breadcrumbs currentPath={pathname} />          
+          <Breadcrumbs currentPath={pathname} />
         </div>
 
         <div className="flex items-center gap-4">
-
           {/* User Profile */}
           <div className="flex items-center gap-1 ml-2">
             <div className="hidden md:block text-right">
               <p className="text-sm font-medium leading-tight">{user?.name}</p>
-              <p className="text-xs text-muted-foreground leading-tight">{user?.sesion_name}</p>
+              <p className="text-xs text-muted-foreground leading-tight">
+                {user?.sesion_name}
+              </p>
             </div>
 
             <DropdownMenu>
@@ -67,16 +68,20 @@ export default function Navbar() {
                   <span>Cambiar Sesión</span>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={() => setShowLogoutDialog(true)}>
-                  <LogOut className="mr-2 h-4 w-4" />
-                  <span>Cerrar Sesión</span>
+                <DropdownMenuItem asChild>
+                  <a
+                    href="/api/auth/logout"
+                    className="flex items-center cursor-pointer"
+                  >
+                    <LogOut className="mr-2 h-4 w-4" />
+                    <span>Cerrar Sesión</span>
+                  </a>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
         </div>
       </div>
-
     </header>
   );
 }

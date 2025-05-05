@@ -12,7 +12,6 @@ import { getOcultarColumn } from "../helper/tableValidation";
 import { Bounce, toast } from "react-toastify";
 import { getDataCustomeHandle } from "../helper/defaultFetch";
 import CustomTablePagination from "../TablePagination/CustomTablePagination";
-import { useCheckPerm } from "@/hooks/use-checkPerm";
 
 /**
  * Interfaz para los parámetros de paginación y filtros.
@@ -140,7 +139,6 @@ const TableCustomeHandle = forwardRef<TableCustomeHandleRef, TableInterface>(
     }: TableInterface,
     ref
   ) => {
-    const { checkPerm } = useCheckPerm();
     const [colFilters, setColFilters] = useState<string[]>();
     const [colFiltrosAplicados, setColFiltrosAplicados] = useState(false);
 
@@ -384,7 +382,8 @@ const TableCustomeHandle = forwardRef<TableCustomeHandleRef, TableInterface>(
                     {titles?.map((item: any, index: number) => {
                       if (
                         !item?.permisos ||
-                        (item?.permisos && checkPerm(item?.permisos))
+                        item?.permisos
+                        // && checkPerm(item?.permisos)
                       ) {
                         if (
                           !colFiltrosAplicados ||

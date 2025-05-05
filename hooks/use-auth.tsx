@@ -1,15 +1,19 @@
-"use client"
-
-import { useContext } from "react"
-import { AuthContext } from "./auth-provider"
+// hooks/use-auth.ts
+import { useEffect, useState } from "react";
 
 export function useAuth() {
-  const context = useContext(AuthContext)
+  const [user, setUser] = useState<any>(null);
 
-  if (!context) {
-    throw new Error("useAuth must be used within an AuthProvider")
-  }
+  useEffect(() => {
+    const fetchUser = async () => {
+      const res = await fetch("/api/user");
+      if (res.ok) {
+        const data = await res.json();
+        setUser(data);
+      }
+    };
+    fetchUser();
+  }, []);
 
-  return context
+  return { user };
 }
-
