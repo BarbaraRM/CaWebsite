@@ -5,6 +5,6 @@ export const GET = handleAuth({
     authorizationParams: {
       screen_hint: "login",  
     },
-    returnTo: "/",
+    returnTo: "/admin",
   })
 });
