@@ -1,6 +1,6 @@
 "use client";
 
-import { EmpresaInforType } from "@/types/website/home";
+import { EmpresaInforType } from "@/types/home";
 import { MapPin, Phone, Mail } from "lucide-react";
 import { motion } from "framer-motion";
 

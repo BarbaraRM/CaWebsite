@@ -1,6 +1,6 @@
 "use client";
 
-import { ServiciosSectiontype } from "@/types/website/home";
+import { ServiciosSectiontype } from "@/types/home";
 import { sanitizeSvg } from "@/utils/sanitizeSvg";
 import { ArrowRight, HeartPulse } from "lucide-react";
 import Link from "next/link";

@@ -2,7 +2,7 @@
 
 import CustomLinkButton from "@/components/general/website/ButtonCta";
 import SectionTitle from "@/components/general/website/SectionTitle";
-import { FeatureSection } from "@/types/website/home";
+import { FeatureSection } from "@/types/home";
 import Image from "next/image";
 import { motion } from "framer-motion";
 

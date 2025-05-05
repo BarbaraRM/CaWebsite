@@ -1,6 +1,6 @@
 "use client";
 
-import { InformationSectionType } from "@/types/website/home";
+import { InformationSectionType } from "@/types/home";
 import { HeartHandshake } from "lucide-react";
 import { sanitizeSvg } from "@/utils/sanitizeSvg";
 

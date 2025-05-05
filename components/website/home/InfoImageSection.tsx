@@ -1,7 +1,7 @@
 "use client";
 
 import CustomLinkButton from "@/components/general/website/ButtonCta";
-import { ImgDetailSection } from "@/types/website/home";
+import { ImgDetailSection } from "@/types/home";
 import { Check } from "lucide-react";
 import Image from "next/image";
 import { motion } from "framer-motion";

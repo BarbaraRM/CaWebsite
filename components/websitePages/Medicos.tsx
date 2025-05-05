@@ -2,7 +2,7 @@
 
 import Header from "../website/Header";
 import Footer from "../website/Footer";
-import { EmpresaInforType } from "@/types/website/home";
+import { EmpresaInforType } from "@/types/home";
 import { MedicosHeader } from "../website/staffMedico/MedicosHeader";
 import ListadoMedico from "../website/staffMedico/ListadoMedico";
 import UneteAlEquipo from "../website/staffMedico/Unete";

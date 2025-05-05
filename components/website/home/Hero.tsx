@@ -9,7 +9,7 @@ import "swiper/css/pagination";
 import Link from "next/link";
 import clsx from "clsx";
 import { motion } from "framer-motion";
-import { HeroSlideType } from "@/types/website/home";
+import { HeroSlideType } from "@/types/home";
 
 interface HeroSliderProps {
   slides: HeroSlideType[];

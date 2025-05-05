@@ -1,7 +1,7 @@
 // app/page.tsx
 import Medicos from "@/components/websitePages/Medicos";
 import { FALLBACK_EMPRESAINFO, FALLBACK_MEDICOS } from "@/store/fallbackData";
-import { HomeData } from "@/types/website/home";
+import { HomeData } from "@/types/home";
 
 async function getData(): Promise<HomeData> {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/home`, {

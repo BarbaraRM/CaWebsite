@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-import { BackgroundSectionType } from "@/types/website/home";
+import { BackgroundSectionType } from "@/types/home";
 
 interface Props {
   data?: BackgroundSectionType;

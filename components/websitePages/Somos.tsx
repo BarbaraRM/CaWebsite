@@ -2,8 +2,8 @@
 
 import Header from "../website/Header";
 import Footer from "../website/Footer";
-import { EmpresaInforType } from "@/types/website/home";
-import { QuienessomosData } from "@/types/website/quienes-somos";
+import { EmpresaInforType } from "@/types/home";
+import { QuienessomosData } from "@/types/quienes-somos";
 import { BackgroundSectionTitle } from "../website/BgSectionTitle";
 import { Options } from "@/components/website/about/Options";
 import Image from "next/image";

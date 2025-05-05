@@ -1,4 +1,4 @@
-import { EmpresaInforType } from "@/types/website/home";
+import { EmpresaInforType } from "@/types/home";
 import ContactFormSimple from "../website/contacto/Contact-form-simple";
 import ContactInfo from "../website/contacto/Contact-info";
 import Footer from "../website/Footer";

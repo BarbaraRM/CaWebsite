@@ -1,6 +1,6 @@
 import Header from "../website/Header";
 import Footer from "../website/Footer";
-import { EmpresaInforType, HomeData } from "@/types/website/home";
+import { EmpresaInforType, HomeData } from "@/types/home";
 import HeroSlider from "../website/home/Hero";
 import InformationSection from "../website/home/Information";
 import ServiciosSection from "../website/home/ServiciosSect";

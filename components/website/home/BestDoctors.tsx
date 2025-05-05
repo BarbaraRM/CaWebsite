@@ -8,7 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import React from "react";
-import { BestDoctorsType } from "@/types/website/home";
+import { BestDoctorsType } from "@/types/home";
 import SectionTitle from "@/components/general/website/SectionTitle";
 import { motion } from "framer-motion";
 

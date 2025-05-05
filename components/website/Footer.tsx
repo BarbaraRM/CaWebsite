@@ -13,7 +13,7 @@ import {
   Siren,
 } from "lucide-react";
 import Image from "next/image";
-import { EmpresaInforType } from "@/types/website/home";
+import { EmpresaInforType } from "@/types/home";
 
 const Footer = ({ footerdata }: { footerdata: EmpresaInforType }) => {
   return (

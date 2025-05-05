@@ -1,7 +1,7 @@
 import { MedicoInterface } from "@/types/medico";
 import { OfertaLaboral } from "@/types/oferta";
-import { EmpresaInforType } from "@/types/website/home";
-import { QuienessomosData } from "@/types/website/quienes-somos";
+import { EmpresaInforType } from "@/types/home";
+import { QuienessomosData } from "@/types/quienes-somos";
 
 export const FALLBACK_DATA: any = {
   hero: {
