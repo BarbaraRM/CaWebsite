@@ -15,9 +15,9 @@ export const JoinHeaderTitle = () => {
       </div>
 
       {/* Content */}
-      <div className="justify-start flex-1 h-full flex flex-col relative z-10 px-4 py-6 md:py-20 max-w-7xl mx-auto text-center text-white">
+      <div className="justify-start flex-1 h-full flex flex-col relative z-10 px-4 py-12 md:py-20 max-w-7xl mx-auto text-center text-white">
         <div className="text-center mb-20">
-          <h2 className="text-dark  text-lg md:text-xl font-semibold mb-2">
+          <h2 className="text-dark  text-sm md:text-xl font-semibold mb-2">
             HAZ CRECER TU CARRERA CON NOSOTROS.
           </h2>
           <h1 className="text-primary text-4xl md:text-5xl lg:text-6xl font-bold mb-12">

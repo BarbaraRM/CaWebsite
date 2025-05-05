@@ -11,7 +11,7 @@ type ListItemType = { title: string; content: string; icon?: string };
 export const Options = ({ list }: Props) => {
   return (
     <section className="py-12 px-4">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-14">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-14">
         {list?.map((item: ListItemType, index: number) => (
           <motion.div
             key={index}
@@ -21,8 +21,8 @@ export const Options = ({ list }: Props) => {
             transition={{ duration: 0.5, delay: index * 0.15 }}
             className="bg-[#f7edda] rounded-lg p-6 shadow-sm"
           >
-            <div className="flex items-start gap-3 mb-3">
-              <div className="w-6 h-6 rounded-full bg-[#f5a23d] flex items-center justify-center mt-1">
+            <div className="flex items-center gap-2 md:gap-3 mb-3">
+              <div className="w-5 h-5 md:w-6 md:h-6 rounded-full bg-[#f5a23d] flex items-center justify-center">
                 {item?.icon ? (
                   item?.icon
                 ) : (
@@ -42,11 +42,11 @@ export const Options = ({ list }: Props) => {
                   </svg>
                 )}
               </div>
-              <p className="text-xl font-medium text-[#555555] whitespace-pre-line">
+              <p className="text-base md:text-xl font-medium text-[#555555] whitespace-pre-line">
                 {item?.title || "Title"}
               </p>
             </div>
-            <p className="text-[#555555] text-sm leading-relaxed whitespace-pre-line">
+            <p className="text-[#555555] text-sm md:leading-relaxed whitespace-pre-line">
               {item?.content || "Este es el contenido de la descripcion"}
             </p>
           </motion.div>

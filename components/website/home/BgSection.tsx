@@ -15,7 +15,7 @@ interface ItemsType {
 
 export const BackgroundSection = ({ data }: Props) => {
   return (
-    <section className="flex flex-col relative min-h-[91dvh]">
+    <section className="flex flex-col relative min-h-[90dvh]">
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <div
@@ -28,13 +28,13 @@ export const BackgroundSection = ({ data }: Props) => {
       </div>
 
       {/* Content */}
-      <div className="justify-center flex-1 h-full flex flex-col relative z-10 px-4 py-24 md:py-32 lg:py-40 max-w-7xl mx-auto text-center text-white">
+      <div className="justify-center flex-1 h-full flex flex-col relative z-10 px-4 py-16 md:py-32 lg:py-40 max-w-7xl mx-auto text-center text-white">
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 1 }}
           viewport={{ once: true }}
-          className="font-poppins text-4xl md:text-5xl lg:text-6xl font-bold mb-6 lg:mb-12 2xl:mb-14 tracking-wide leading-normal"
+          className="font-poppins text-3xl md:text-5xl lg:text-6xl font-bold mb-6 lg:mb-12 2xl:mb-14 tracking-wide leading-normal"
         >
           {data?.title || "Your title here"}
         </motion.p>
@@ -45,14 +45,14 @@ export const BackgroundSection = ({ data }: Props) => {
             whileInView={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.2 }}
             viewport={{ once: true }}
-            className="text-lg md:text-xl xl:text-2xl max-w-3xl mx-auto mb-16 !leading-relaxed font-light"
+            className="text-base md:text-xl xl:text-2xl max-w-3xl mx-auto mb-8 md:mb-16 !leading-relaxed font-light"
           >
             {data?.content}
           </motion.p>
         )}
 
         {/* Item List */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 2xl:gap-x-10 mt-12 px-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-y-4 md:gap-8 2xl:gap-x-10 md:mt-12 px-5">
           {data?.items?.map((item: ItemsType, index: number) => (
             <motion.div
               key={`bg-${item?.title}-${index}`}
@@ -66,7 +66,7 @@ export const BackgroundSection = ({ data }: Props) => {
                 {/* Puedes mantener o reemplazar este ícono según necesidad */}
                 <svg
                   viewBox="0 0 50 51"
-                  className="w-12 h-12"
+                  className="w-8 h-8 md:w-12 md:h-12"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <g clipPath="url(#clip0_70_3237)">
@@ -90,9 +90,9 @@ export const BackgroundSection = ({ data }: Props) => {
 
               <div className="flex flex-col text-start self-start justify-start h-full">
                 {item?.title && (
-                  <p className="text-xl font-semibold mb-2">{item.title}</p>
+                  <p className="text-lg md:text-xl font-semibold md:mb-2">{item.title}</p>
                 )}
-                <p className="text-base leading-tight">{item.content}</p>
+                <p className="text-sm md:text-base leading-tight">{item.content}</p>
               </div>
             </motion.div>
           ))}

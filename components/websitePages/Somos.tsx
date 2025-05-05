@@ -45,7 +45,7 @@ export default function QuienesSomos({
 
         {/* Sección animada */}
         <section className="min-h-[90dvh] flex flex-col justify-center">
-          <div className="relative bg-gray-900 py-24">
+          <div className="relative bg-gray-900 py-12 md:py-24">
             <div className="absolute inset-0 z-0 opacity-90">
               <Image
                 src="/bg/unete_equipo.png"
@@ -61,7 +61,7 @@ export default function QuienesSomos({
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7 }}
                 viewport={{ once: false }}
-                className="text-5xl font-bold text-white font-poppins mb-8"
+                className="text-4xl md:text-5xl font-bold text-white font-poppins mb-8 px-4"
               >
                 ¡Únete a Nuestro Equipo!
               </motion.h2>
@@ -71,7 +71,7 @@ export default function QuienesSomos({
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
                 viewport={{ once: false }}
-                className="text-white text-lg mb-8"
+                className="text-white text-base md:text-lg mb-8"
               >
                 Buscamos personas comprometidas con la salud y el bienestar de
                 los demás. Si eres un profesional apasionado y deseas formar

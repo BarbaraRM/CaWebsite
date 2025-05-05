@@ -36,9 +36,9 @@ const Footer = ({ footerdata }: { footerdata: EmpresaInforType }) => {
         </div>
 
         {/* Main footer content */}
-        <div className="container mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-6 gap-8">
+        <div className="text-sm md:text-base container mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-6 gap-y-6 gap-x-8">
           {/* Logo and contact info */}
-          <div className="w-28 h-28 xl:w-[150px] xl:h-[150px] relative">
+          <div className="hidden md:block w-28 h-28 xl:w-[150px] xl:h-[150px] relative">
             <Image
               src="/images/logo_big.png"
               alt="Clínica Aguilar Logo"
@@ -47,25 +47,25 @@ const Footer = ({ footerdata }: { footerdata: EmpresaInforType }) => {
               className="object-contain"
             />
           </div>
-          <div className="space-y-6 md:col-span-2">
+          <div className=" space-y-6 md:col-span-2">
             <div className="space-y-2">
-              <h3 className="text-xl font-medium mb-4">Contact us</h3>
+              <h3 className="text-base md:text-xl font-medium mb-2 md:mb-4">Contact us</h3>
               {footerdata?.direccion && (
                 <div className="flex items-center gap-1">
-                  <MapPin className="w-5 h-5 " />
+                  <MapPin className="w-4 h-4 md:w-5 md:h-5 " />
                   <p>{footerdata?.direccion || ""}</p>
                 </div>
               )}
               {footerdata?.telefono && (
                 <div className="flex items-center gap-2">
-                  <Phone className="w-5 h-5 " />
+                  <Phone className="w-4 h-4 md:w-5 md:h-5 "  />
                   <p>{footerdata?.telefono || ""}</p>
                 </div>
               )}
               {footerdata?.whatsapp && (
                 <div className="flex items-center gap-2">
                   <svg
-                    className="w-5 h-5 "
+                    className="w-4 h-4 md:w-5 md:h-5 " 
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -89,7 +89,7 @@ const Footer = ({ footerdata }: { footerdata: EmpresaInforType }) => {
               )}
               {footerdata?.email && (
                 <div className="flex items-center gap-2">
-                  <Mail className="w-5 h-5 " />
+                  <Mail className="w-4 h-4 md:w-5 md:h-5 "  />
                   <p>{footerdata?.email || ""}</p>
                 </div>
               )}
@@ -98,7 +98,7 @@ const Footer = ({ footerdata }: { footerdata: EmpresaInforType }) => {
 
           {/* Quick links */}
           <div className="md:col-span-2">
-            <h3 className="text-xl font-medium mb-4">Enlaces Rápidos</h3>
+            <h3 className="text-base md:text-xl font-medium mb-2 md:mb-4">Enlaces Rápidos</h3>
             <ul className="px-3 space-y-1 text-gray-400">
               <li>
                 <Link
@@ -145,7 +145,7 @@ const Footer = ({ footerdata }: { footerdata: EmpresaInforType }) => {
 
           {/* Social media */}
           <div>
-            <h3 className="text-xl font-medium mb-4">Síguenos</h3>
+            <h3 className="text-base md:text-xl font-medium mb-2 md:mb-4">Síguenos</h3>
             <div className="flex gap-4">
               {footerdata?.socialMedia?.instagram && (
                 <Link
@@ -197,7 +197,7 @@ const Footer = ({ footerdata }: { footerdata: EmpresaInforType }) => {
         </div>
 
         {/* Copyright */}
-        <div className="container mx-auto px-4 py-4 text-center border-t border-gray-700 relative">
+        <div className="text-xs md:text-sm container mx-auto px-4 py-4 text-center border-t border-gray-700 relative">
           <p>© Clínica Aguilar - Todos los derechos reservados</p>
 
           {/* Back to top button */}

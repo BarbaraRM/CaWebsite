@@ -24,7 +24,7 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
         pagination={{ clickable: true }}
         autoplay={{ delay: 6000 }}
         loop
-        className="h-[50vh]"
+        className="h-[40dvh] md:h-[50vh]"
       >
         {slides.map((slide, index) => (
           <SwiperSlide key={index}>
@@ -47,7 +47,7 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
                   )}
                 >
                   <motion.h1
-                    className="text-white text-4xl md:text-6xl mb-4 drop-shadow-lg text-center !font-bold font-nunito"
+                    className="text-white text-2xl md:text-6xl mb-4 drop-shadow-lg text-center !font-bold font-nunito "
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
@@ -57,7 +57,7 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
 
                   {slide?.description && (
                     <motion.p
-                      className="text-white text-lg md:text-2xl mb-6 drop-shadow-md font-nunito text-center"
+                      className="text-white text-base md:text-2xl mb-6 drop-shadow-md font-nunito text-center px-6"
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.2, duration: 0.6 }}

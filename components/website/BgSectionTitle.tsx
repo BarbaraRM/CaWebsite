@@ -10,7 +10,7 @@ interface Props {
 
 export const BackgroundSectionTitle = ({ title, content, imageUrl }: Props) => {
   return (
-    <section className="flex flex-col relative max-h-[400px]">
+    <section className="flex flex-col relative max-h-[325px] md:max-h-[400px]">
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <div
@@ -29,7 +29,7 @@ export const BackgroundSectionTitle = ({ title, content, imageUrl }: Props) => {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 1 }}
-          className="font-poppins text-4xl md:text-5xl lg:text-6xl font-bold mb-12 lg:mb-12 2xl:mb-14 tracking-wide leading-normal"
+          className="font-poppins text-3xl md:text-5xl lg:text-6xl font-bold mb-4 lg:mb-12 2xl:mb-14 tracking-wide leading-normal"
         >
           {title || "Your title here"}
         </motion.p>
@@ -40,7 +40,7 @@ export const BackgroundSectionTitle = ({ title, content, imageUrl }: Props) => {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 1, delay: 0.3 }}
-            className="text-lg md:text-xl max-w-6xl mx-auto mb-16 !leading-relaxed font-light"
+            className="text-sm md:text-xl max-w-6xl mx-auto mb-16 !leading-relaxed font-light"
           >
             {content || "Experiencia en Maternidad"}
           </motion.p>
