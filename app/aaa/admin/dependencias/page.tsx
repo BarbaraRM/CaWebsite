@@ -1,4 +1,3 @@
-// app/(dashboard)/admin/dependencias/page.tsx
 import dynamic from "next/dynamic";
 
 const DependenciasPage = dynamic(

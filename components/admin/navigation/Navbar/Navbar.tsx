@@ -12,9 +12,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useAuth } from "@/hooks/use-auth";
-import { ChangeSessionDialog } from "@/components/navigation/Navbar/change-session-dialog";
-import { NotificationsPopover } from "@/components/navigation/Navbar/notifications-popover";
-import { LogoutDialog } from "./logout-dialog";
 import Breadcrumbs from "./Breadcrumbs";
 
 export default function Navbar() {
@@ -31,8 +28,6 @@ export default function Navbar() {
         </div>
 
         <div className="flex items-center gap-4">
-          {/* Notifications */}
-          <NotificationsPopover />
 
           {/* User Profile */}
           <div className="flex items-center gap-1 ml-2">
@@ -82,15 +77,6 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Dialogs */}
-      <ChangeSessionDialog
-        open={showChangeSessionDialog}
-        onOpenChange={setShowChangeSessionDialog}
-      />
-      <LogoutDialog
-        open={showLogoutDialog}
-        onOpenChange={setShowLogoutDialog}
-      />
     </header>
   );
 }
