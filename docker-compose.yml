@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  web:
+    container_name: favia-ca
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3050:3050" # ← Externo:Interno
+    environment:
+      - NODE_ENV=production
+      - NEXT_DISABLE_ESLINT=true
+    restart: unless-stopped
