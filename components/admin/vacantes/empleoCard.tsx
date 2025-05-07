@@ -27,7 +27,7 @@ interface Props {
   onBlock: (id: string) => void;
   onActivate: (id: string) => void;
 }
-export function DoctorCard({
+export function EmpleoCard({
   item,
   onEdit,
   onSee,

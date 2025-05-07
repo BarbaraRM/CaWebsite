@@ -33,7 +33,7 @@ interface Props {
   item: MedicoInterface;
 }
 
-const ViewMedicoModal: React.FC<Props> = ({ open, onClose, item }) => {
+const ViewEmpleoModal: React.FC<Props> = ({ open, onClose, item }) => {
   return (
     <Modal
       title={``}
@@ -138,4 +138,4 @@ const ViewMedicoModal: React.FC<Props> = ({ open, onClose, item }) => {
   );
 };
 
-export default ViewMedicoModal;
+export default ViewEmpleoModal;

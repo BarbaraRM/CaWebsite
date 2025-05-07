@@ -1,15 +1,17 @@
 export interface OfertaLaboral {
-  id: number;
-  title: string;
-  deadline: string;
-  imageUrl: string;
-  description: string;
-  targetAudience: string;
-  duration: string;
-  startDate: string;
-  endDate: string;
-  requiredSkills: string;
-  requirements: string;
-  applicationLink: string;
-  importantNote: string;
+  id?: number;
+  title?: string;
+  targetAudience?: string;
+  startDate?: string;
+  endDate?: string;
+  description?: string;
+  requiredSkills?: string;
+  requirements?: string;
+  applicationLink?: string;
+  importantNote?: string;
+  visible?: boolean;
+  imageUrl?: string;
+  deadline?: string;
+  duration?: string;
+  startPostOn?: string;
 }

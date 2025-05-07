@@ -22,6 +22,7 @@ import { AddDoctorCard } from "../admin/medicos/addDoctorCard";
 import { DoctorCard } from "../admin/medicos/doctorCard";
 import DoctorForm from "../admin/medicos/doctorForm";
 import ViewMedicoModal from "../admin/medicos/doctorDetail";
+import EmpleadoForm from "../admin/vacantes/empleoForm";
 
 const titleTable: TableTitles[] = [
   { label: "Código", className: "!w-[200px] !pl-6 text-start" },
@@ -196,7 +197,7 @@ function VacantesPage() {
         </TableCustomeHandle>
       </div>
       {openNew && (
-        <DoctorForm
+        <EmpleadoForm
           item_id={selectedId}
           item={selectedRegistro}
           isOpen={openNew}
