@@ -16,6 +16,7 @@ interface ModalProps {
   saveDisabled?: boolean;
   saveText?: string;
   cancelText?: string;
+  useSubmit?: boolean;
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -33,6 +34,7 @@ const Modal: React.FC<ModalProps> = ({
   saveDisabled = false,
   saveText = "Save",
   cancelText = "Cancel",
+  useSubmit
 }) => {
   if (!isOpen) return null;
 
@@ -97,7 +99,7 @@ const Modal: React.FC<ModalProps> = ({
             {(onSave || formId) && (
               <button
                 className="px-4 py-2 text-sm font-semibold text-white bg-blue-600 rounded hover:bg-blue-700 disabled:bg-gray-400 disabled:text-gray-600 disabled:cursor-not-allowed"
-                onClick={handleSave}
+                onClick={!useSubmit ? handleSave : undefined}
                 form={formId}
                 disabled={saveDisabled}
                 type={formId ? "submit" : "button"}

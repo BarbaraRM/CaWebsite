@@ -15,8 +15,8 @@ import { authFetch } from "@/hooks/auth-fetch";
  *          or an error message if there is a failure.
  */
 export async function getDataCustomeHandle({
-  page = 0,
-  size,
+  skip = 0,
+  limit,
   filters,
   textFilter,
   params,
@@ -29,8 +29,8 @@ export async function getDataCustomeHandle({
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        page,
-        size,
+        ini: skip,
+        fin: limit,
         filters,
         textFilter,
         params,

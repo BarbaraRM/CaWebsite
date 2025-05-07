@@ -10,8 +10,8 @@ import { TableTitles } from "../interfaces/FetchParams";
 import SkeletonTabla from "../SklTable/SklTable";
 import { getOcultarColumn } from "../helper/tableValidation";
 import { Bounce, toast } from "react-toastify";
+import ShortPagination from "../TablePagination/ShortPagination";
 import { getDataCustomeHandle } from "../helper/defaultFetch";
-import CustomTablePagination from "../TablePagination/CustomTablePagination";
 
 /**
  * Interfaz para los parámetros de paginación y filtros.
@@ -41,12 +41,13 @@ interface TableInterface {
   mobileViewType?: "table" | "list"; // Tipo de vista en móvil ('table' o 'list')
   customSkeleton?: ReactNode; // Componente Skeleton personalizado opcional
   api_url?: string | undefined; //Ruta en caso que se este trabajando con server-side, y no requiere personalizacion
-  data?: any;
   emptyDisplay?: ReactNode;
   onRowClick?: Function;
   isList?: boolean; //Para saber si es tabla o una lista nomas. Dependiendo de eso se muestran titulos y demas
   containerClassName?: string; //ClassName para el contenedor de las listas en caso de que no sea de tipo tabla
   fetchDefault?: boolean;
+  newCard?: ReactNode;
+  newRow?: ReactNode;
 }
 
 /**
@@ -130,25 +131,25 @@ const TableCustomeHandle = forwardRef<TableCustomeHandleRef, TableInterface>(
       params,
       mobileViewType = "table", // 'table' o 'list'
       customSkeleton, // Componente Skeleton personalizado
+      api_url,
       onRowClick,
       emptyDisplay,
       isList,
       containerClassName,
-      api_url,
       fetchDefault,
+      newCard,
+      newRow,
     }: TableInterface,
     ref
   ) => {
     const [colFilters, setColFilters] = useState<string[]>();
     const [colFiltrosAplicados, setColFiltrosAplicados] = useState(false);
-
-    const [page, setPage] = useState<number>(0);
-    const [totalRegistros, setTotalRegistros] = useState<number>(0);
-
     const [skip, setSkip] = useState<number>(START_VALUE);
 
-    const [tableData, settableData] = useState<any>([]);
-    const [searching, setSearching] = useState<boolean>(false);
+    const [tableData, settableData] = useState<any>();
+    const [searching, setSearching] = useState<boolean>(true);
+    const [nextPage, setNextPage] = useState<boolean>(false);
+    const [previousPage, setPreviousPage] = useState<boolean>(false);
     const [registerPerPage, setRegisterPerPage] =
       useState<number>(multiplicador);
     const [optionsPerPage, setOptionsPerPage] = useState<number[]>(
@@ -156,84 +157,89 @@ const TableCustomeHandle = forwardRef<TableCustomeHandleRef, TableInterface>(
         ? [multiplicador, ...rowsPerPageOptions].sort((a, b) => a - b)
         : rowsPerPageOptions
     );
-    const [shouldFetch, setShouldFetch] = useState<boolean>(
-      fetchDefault || true
-    );
+    const [shouldFetch, setShouldFetch] = useState<boolean>(true);
 
     useImperativeHandle(ref, () => ({
       refreshData() {
-        console.log("from refresh");
         fetchData(START_VALUE);
       },
     }));
 
-    const fetchData = async (tempPage?: number) => {
-      if (!searching) {
-        try {
-          setSearching(true);
-          const reducedObject = filtersToApply?.reduce(
-            (acc: ResultadoSeparado, filterName: string) => {
-              const filterResult = buscarFiltrosAlmacenadosSS(
-                `pag_filter${filterName}`
-              );
-              acc.row = { ...acc.row, ...filterResult.row };
-              acc.col = [...acc.col, ...filterResult.col];
-              return acc;
-            },
-            { row: {}, col: [] } as ResultadoSeparado
-          );
+    const handlePageChange = (newSkip: number) => {
+      setShouldFetch(true);
+      setSkip(newSkip);
+    };
 
-          if (reducedObject?.col) {
-            setColFilters(reducedObject?.col);
-          }
+    const fetchData = async (newSkip?: number) => {
+      try {
+        setSearching(true);
+        const reducedObject = filtersToApply?.reduce(
+          (acc: ResultadoSeparado, filterName: string) => {
+            const filterResult = buscarFiltrosAlmacenadosSS(
+              `pag_filter${filterName}`
+            );
+            acc.row = { ...acc.row, ...filterResult.row };
+            acc.col = [...acc.col, ...filterResult.col];
+            return acc;
+          },
+          { row: {}, col: [] } as ResultadoSeparado
+        );
 
-          let SSFilterText: any = sessionStorage.getItem(
-            `pag_table_searchTxt${searchName}`
-          );
-
-          let searchInputTemp: string = SSFilterText
-            ? JSON.parse(SSFilterText)
-            : "";
-
-          let filtersForFetch = reducedObject?.row
-            ? { ...reducedObject?.row }
-            : {};
-          if (params?.filters) {
-            filtersForFetch = { ...filtersForFetch, ...params?.filters };
-          }
-
-          const fetchFunction = api_url ? getDataCustomeHandle : dataFetch;
-          if (!fetchFunction) {
-            //alert("Se necesita un funcion de tipo FETCH");
-            throw new Error("FETCH FUNCTION NEEDED");
-          }
-          await fetchFunction({
-            page: tempPage || page + 1,
-            size: registerPerPage,
-            filters: filtersForFetch,
-            textFilter: searchInputTemp,
-            params: params,
-            ...(api_url ? { api_url } : {}), // Solo agrega api_url si existe
-          })
-            .then((resp: any) => {
-              if (resp) {
-                settableData(resp?.data || []);
-                setTotalRegistros(resp?.total_registros || 0);
-              } else {
-                settableData([]);
-                setTotalRegistros(0);
-              }
-            })
-            .finally(() => {
-              setSearching(false);
-            });
-        } catch (error) {
-          console.error("Error fetching the data in table...", error);
-          settableData([]);
-        } finally {
-          setSearching(false);
-          setShouldFetch(true); // 🔥 Se asegura de restablecer shouldFetch después de cada fetch
+        if (reducedObject?.col) {
+          setColFilters(reducedObject?.col);
         }
+
+        let SSFilterText: any = sessionStorage.getItem(
+          `pag_table_searchTxt${searchName}`
+        );
+
+        let searchInputTemp: string = SSFilterText
+          ? JSON.parse(SSFilterText)
+          : "";
+
+        let filtersForFetch = reducedObject?.row
+          ? { ...reducedObject?.row }
+          : {};
+        if (params?.filters) {
+          filtersForFetch = { ...filtersForFetch, ...params?.filters };
+        }
+
+        const fetchFunction = api_url ? getDataCustomeHandle : dataFetch;
+        if (!fetchFunction) {
+          alert("Se necesita un funcion de tipo FETCH");
+          throw new Error("FETCH FUNCTION NEEDED");
+        }
+        await fetchFunction({
+          skip: newSkip ?? skip,
+          limit: skip + registerPerPage,
+          filters: filtersForFetch,
+          textFilter: searchInputTemp,
+          params: params,
+          ...(api_url ? { api_url } : {}), // Solo agrega api_url si existe
+        })
+          .then((resp: any) => {
+            if (resp) {
+              console.log("response data", resp);
+              // settableData(data);
+              settableData(resp?.data || []);
+              setSkip(resp?.skip ?? 0);
+              setNextPage(resp?.next_page ?? false);
+              setPreviousPage(resp?.previous_page ?? false);
+            } else {
+              settableData([]);
+              setNextPage(false);
+              setPreviousPage(false);
+            }
+          })
+          .finally(() => {
+            setSearching(false);
+          });
+      } catch (error) {
+        console.error("Error fetching the data in table...", error);
+        settableData([]);
+      } finally {
+        setSearching(false);
+        setShouldFetch(true); // 🔥 Se asegura de restablecer shouldFetch después de cada fetch
       }
     };
 
@@ -274,12 +280,11 @@ const TableCustomeHandle = forwardRef<TableCustomeHandleRef, TableInterface>(
 
     useEffect(() => {
       if (shouldFetch) {
-        setShouldFetch(false);
         fetchData().then(() => {
           setShouldFetch(true); // Restablece el estado solo después de que fetchData() finaliza
         });
       }
-    }, [skip, registerPerPage, page]);
+    }, [skip, registerPerPage]);
 
     useEffect(() => {
       const handleStorageEvent = () => {
@@ -326,7 +331,6 @@ const TableCustomeHandle = forwardRef<TableCustomeHandleRef, TableInterface>(
     if (searching) {
       return customSkeleton ? customSkeleton : <SkeletonTabla />;
     }
-
     if (tableData?.length === 0 && emptyDisplay) {
       return emptyDisplay;
     } else {
@@ -336,6 +340,7 @@ const TableCustomeHandle = forwardRef<TableCustomeHandleRef, TableInterface>(
             {mobileViewType === "list" && (
               <table className="md:hidden min-w-full divide-y divide-gray-200">
                 <tbody className="space-y-2">
+                  {newRow && <tr >{newRow}</tr>}
                   {tableData.map((row: any, index: number) =>
                     children ? (
                       children(row, index)
@@ -364,6 +369,7 @@ const TableCustomeHandle = forwardRef<TableCustomeHandleRef, TableInterface>(
             )}
             {isList && children && (
               <div className={containerClassName || "flex flex-col gap-y-1"}>
+                {newCard && newCard}
                 {tableData &&
                   tableData?.length > 0 &&
                   tableData?.map((row: any, index: number) =>
@@ -381,47 +387,43 @@ const TableCustomeHandle = forwardRef<TableCustomeHandleRef, TableInterface>(
                   <tr>
                     {titles?.map((item: any, index: number) => {
                       if (
-                        !item?.permisos ||
-                        item?.permisos
-                        // && checkPerm(item?.permisos)
+                        !colFiltrosAplicados ||
+                        (colFiltrosAplicados &&
+                          !getOcultarColumn(
+                            item?.key,
+                            colFiltrosAplicados,
+                            colFilters
+                          ))
                       ) {
-                        if (
-                          !colFiltrosAplicados ||
-                          (colFiltrosAplicados &&
-                            !getOcultarColumn(
-                              item?.key,
-                              colFiltrosAplicados,
-                              colFilters
-                            ))
-                        ) {
-                          return (
-                            <th
-                              key={`Cell-${index}`}
-                              style={
-                                item?.sticky
-                                  ? {
-                                      position: "sticky",
-                                      left: item?.position || 0,
-                                      zIndex: 3,
-                                      backgroundColor: "white",
-                                      fontWeight: "bold",
-                                    }
-                                  : {}
-                              }
-                              className={`px-2 py-1.5 text-center text-sm font-medium text-white normal-case leading-none tracking-wider ${item?.className} `}
-                              align={item?.align}
-                              title={item?.label}
-                            >
-                              {item?.label}
-                            </th>
-                          );
-                        }
+                        return (
+                          <th
+                            key={`Cell-${index}`}
+                            style={
+                              item?.sticky
+                                ? {
+                                    position: "sticky",
+                                    left: item?.position || 0,
+                                    zIndex: 3,
+                                    backgroundColor: "white",
+                                    fontWeight: "bold",
+                                  }
+                                : {}
+                            }
+                            className={`px-2 py-1.5 text-center text-sm font-medium text-white normal-case leading-none tracking-wider ${item?.className} `}
+                            align={item?.align}
+                            title={item?.label}
+                          >
+                            {item?.label}
+                          </th>
+                        );
                       }
                       return "";
                     })}
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
+                  {newRow && <tr >{newRow}</tr>}
+
                   {children
                     ? tableData &&
                       tableData?.length > 0 &&
@@ -500,20 +502,18 @@ const TableCustomeHandle = forwardRef<TableCustomeHandleRef, TableInterface>(
               </table>
             )}
           </div>
-          <CustomTablePagination
-            rowsPerPageOptions={optionsPerPage}
-            count={totalRegistros}
-            rowsPerPage={registerPerPage}
-            page={page}
-            onPageChange={(_: any, newPage: any) => {
-              setShouldFetch(true);
-              setPage(newPage);
-            }}
-            onRowsPerPageChange={(e) => {
-              setRegisterPerPage(Number(e.target.value));
-              setPage(0); // reset page
-            }}
-          />
+          {(previousPage || nextPage) && (
+            <ShortPagination
+              skip={skip}
+              multiplicador={registerPerPage}
+              nextPage={nextPage}
+              previousPage={previousPage}
+              onPageChange={handlePageChange}
+              optionsPerPage={optionsPerPage ?? [25, 50, 100]}
+              onLimitChange={onChnagePerPage}
+              registerPerPage={registerPerPage}
+            />
+          )}
         </>
       );
     }
@@ -537,7 +537,7 @@ export default TableCustomeHandle;
  * @param {string} param.placeholder
  * @returns
  */
-export function SearchInputHandle1({
+export function SearchInputHandle({
   placeholder = "Search ...",
   eventName = "",
 }: {
@@ -607,130 +607,6 @@ export function SearchInputHandle1({
           <button
             type="submit"
             className="leading-tight text-white absolute end-1 bottom-1.5 bg-dark hover:bg-dark/6 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-sm px-3 py-1.5"
-          >
-            Buscar
-          </button>
-        )}
-      </div>
-    </form>
-  );
-}
-
-export interface SearchFiltersInterface {
-  fieldName: string;
-  label: string;
-}
-
-/**
- * ******************************************************************************
- *                                 CUSTOM IMPORTABLE COMPONENT
- * ******************************************************************************
- *
- * Componente para crer un input de tipo busqueda. Funciona aislado de la tabla.
- * Funcionamiento: Cada vez que se cambia el texto en el input se almacena el valor en local storage y se genera un evento.
- * Resultado: Desde el lugar o componente que se desee se debe poner un addEventListener y dentro de la funcion lee la variable almacenada en local storage
- *
- * Evento Disparado: storage
- * Variable Local Storage:
- *
- * @param {string} param.placeholder
- * @returns
- */
-export function SearchInputHandle({
-  placeholder = "Search ...",
-  eventName = "",
-  searchFilters,
-  defaultFilter = "all",
-  trimOn = "cedula",
-}: {
-  placeholder?: string;
-  eventName?: string;
-  searchFilters?: SearchFiltersInterface[];
-  defaultFilter?: string;
-  trimOn?: string;
-}) {
-  const [searchText, setSearchText] = useState("");
-  const [filterOptionSelected, setFilterOptionSelected] =
-    useState<string>(defaultFilter);
-
-  const onhandleChange = (e: any) => {
-    setSearchText(e.target.value);
-  };
-
-  const sendSearchEvent = (e: any) => {
-    e.preventDefault();
-    sessionStorage.setItem(
-      `pag_table_searchTxt${eventName}`,
-      JSON.stringify((searchText || "").trim())
-    );
-    window.dispatchEvent(new Event(`pag_storage${eventName}`));
-  };
-
-  const onSelectOption = (e: any) => {
-    e.preventDefault();
-    sessionStorage.setItem(
-      `pag_table_searchName${eventName}`,
-      JSON.stringify(e?.target?.value)
-    );
-    setFilterOptionSelected(e?.target?.value);
-  };
-
-  useEffect(() => {
-    if (searchText === "") {
-      sessionStorage.setItem(
-        `pag_table_searchTxt${eventName}`,
-        JSON.stringify(searchText)
-      );
-      window.dispatchEvent(new Event(`pag_storage${eventName}`));
-    }
-  }, [searchText]);
-
-  useEffect(() => {
-    sessionStorage.setItem(
-      `pag_table_searchName${eventName}`,
-      JSON.stringify(defaultFilter)
-    );
-  }, [defaultFilter]);
-
-  return (
-    <form
-      id="input_handle_search"
-      className="max-w-md min-w-[250px] flex md:min-w-[400px]"
-      onSubmit={sendSearchEvent}
-    >
-      {searchFilters && searchFilters?.length > 0 && (
-        <select
-          id="cie-versions"
-          value={filterOptionSelected}
-          onChange={onSelectOption}
-          className="bg-blue-500 text-white text-sm !border-blue-500  border rounded-s focus:ring-blue-500 focus:border-blue-500 block w-fit py-1 px-3"
-        >
-          <option value={"all"}>{"Todo"}</option>
-          {searchFilters?.map(
-            (option: SearchFiltersInterface, index: number) => {
-              return (
-                <option key={option?.fieldName} value={option?.fieldName}>
-                  {option?.label || ""}
-                </option>
-              );
-            }
-          )}
-        </select>
-      )}
-      <div className="relative w-full">
-        <input
-          value={searchText}
-          onChange={onhandleChange}
-          type="search"
-          id="default-search"
-          autoComplete="off"
-          className="shadow block w-full p-2 ps-4 pe-20 text-gray-900 border border-gray-400 rounded bg-white focus:ring-blue-500 focus:border-blue-500"
-          placeholder={placeholder}
-        />
-        {searchText && searchText !== "" && (
-          <button
-            type="submit"
-            className="leading-tight text-white absolute end-1.5 bottom-1 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg px-3 py-1.5"
           >
             Buscar
           </button>

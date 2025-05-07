@@ -1,10 +1,13 @@
-
 export interface MedicoInterface {
+  _id?: string;
   sufix?: string;
-  nombre: string;
-  apellido: string;
-  especialidad: string;
-  horario: {
+  nombre?: string;
+  apellido?: string;
+  especialidad?: string;
+  visible?: boolean;
+  consultorio?: string;
+  telefono?: string;
+  horario?: {
     lun?: { start?: string; end?: string };
     mar?: { start?: string; end?: string };
     mier?: { start?: string; end?: string };
@@ -19,6 +22,7 @@ export interface MedicoInterface {
     linkedin?: string;
     tiktok?: string;
     whatsapp?: string;
+    sitioWeb?: string;
   };
-  imagen: string;
+  imagen?: string;
 }
