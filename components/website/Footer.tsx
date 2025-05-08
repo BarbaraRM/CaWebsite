@@ -49,7 +49,7 @@ const Footer = ({ footerdata }: { footerdata: EmpresaInforType }) => {
           </div>
           <div className=" space-y-6 md:col-span-2">
             <div className="space-y-2">
-              <h3 className="text-base md:text-xl font-medium mb-2 md:mb-4">Contact us</h3>
+              <h3 className="text-base md:text-xl font-medium mb-2 md:mb-4">Contactanos</h3>
               {footerdata?.direccion && (
                 <div className="flex items-center gap-1">
                   <MapPin className="w-4 h-4 md:w-5 md:h-5 " />

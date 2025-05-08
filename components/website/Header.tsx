@@ -8,6 +8,7 @@ const navItems:any = [
   { name: "Inicio", href: "/" },
   { name: "Quienes Somos", href: "/quienes-somos" },
   { name: "Nuestros Médicos", href: "/medicos" },
+  { name: "Servicios", href: "/servicios" },
   // {
   //   name: "Servicios",
   //   submenu: [
