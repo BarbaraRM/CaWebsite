@@ -11,6 +11,7 @@ import CustomLinkButton from "@/components/general/website/ButtonCta";
 
 interface Props {
   data: ServiciosSectiontype;
+  preview?: boolean;
 }
 
 // Animaciones
@@ -73,6 +74,7 @@ function ServiciosSection({ data }: Props) {
                 {item?.href && (
                   <div className="mt-4 flex flex-1 justify-end items-center text-white gap-x-2">
                     <Link
+                    
                       href={item?.href}
                       className="cursor-pointer flex flex-row gap-x-1 text-white underline text-xs md:text-sm group-hover:font-bold group-hover:no-underline"
                     >

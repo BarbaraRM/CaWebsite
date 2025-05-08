@@ -1,4 +1,26 @@
+export type HomeSectionType =
+  | "hero"
+  | "information"
+  | "services"
+  | "background"
+  | "features"
+  | "imageinfo"
+  | "doctors"
+  | "cta";
+
+export interface HomeLayoutItem {
+  id: string;
+  type: HomeSectionType;
+  props: any; // contenido de la sección
+  visible?: boolean; // para permitir ocultarla
+}
+
 export interface HomeData {
+  sections: HomeLayoutItem[];
+}
+
+
+export interface HomeData1 {
   hero: {
     slides: HeroSlideType[];
   };

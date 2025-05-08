@@ -1,6 +1,6 @@
 // app/page.tsx
 import QuienesSomos from "@/components/websitePages/Somos";
-import { FALLBACK_DATA, FALLBACK_EMPRESAINFO, FALLBACK_SOMOS_DATA } from "@/store/fallbackData";
+import { FALLBACK_EMPRESAINFO, FALLBACK_SOMOS_DATA } from "@/store/fallbackData";
 import { HomeData } from "@/types/home";
 
 async function getData(): Promise<HomeData> {

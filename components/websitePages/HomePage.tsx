@@ -13,25 +13,61 @@ import { BestDoctorsSection } from "../website/home/BestDoctors";
 export default function Home({
   data,
   footerdata,
+  preview,
 }: {
   data: HomeData;
   footerdata: EmpresaInforType;
+  preview?: boolean;
 }) {
+  console.log(data?.sections || "");
+
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
+      {!preview && <Header />}
       <main className="flex-grow overflow-auto">
-        <HeroSlider slides={data?.hero?.slides || []} />
-        <InformationSection information={data?.information} />
-        <ServiciosSection data={data?.servicios} />
-        <BackgroundSection data={data?.maternidad} />
-        <ExamenesSection data={data?.diagnosticos} />
-        <ImageInfoSection data={data?.detalle_hosp} />
-        <ImageInfoSection data={data?.detalle_ce} />
-        <BestDoctorsSection data={data?.doctors} />
-        <CtaSectionLast data={data?.cta} />
+        {data?.sections
+          ?.filter((sec) => sec.visible !== false)
+          ?.map((section) => {
+            switch (section.type) {
+              case "hero":
+                return (
+                  <HeroSlider key={section.id} slides={section.props.slides} />
+                );
+              case "information":
+                return (
+                  <InformationSection
+                    key={section.id}
+                    information={section.props}
+                  />
+                );
+              case "services":
+                return (
+                  <ServiciosSection key={section.id} data={section.props} />
+                );
+              case "background":
+                return (
+                  <BackgroundSection key={section.id} data={section.props} />
+                );
+              case "features":
+                return (
+                  <ExamenesSection key={section.id} data={section.props} />
+                );
+              case "imageinfo":
+                return (
+                  <ImageInfoSection key={section.id} data={section.props} />
+                );
+              case "doctors":
+                return (
+                  <BestDoctorsSection key={section.id} data={section.props} />
+                );
+              case "cta":
+                return <CtaSectionLast key={section.id} data={section.props} />;
+              default:
+                return null;
+            }
+          })}
       </main>
-      <Footer footerdata={footerdata} />
+      {!preview && <Footer footerdata={footerdata} />}
     </div>
   );
 }

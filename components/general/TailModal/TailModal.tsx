@@ -51,7 +51,7 @@ const Modal: React.FC<ModalProps> = ({
   return ReactDOM.createPortal(
     <div
       className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
-      style={{ zIndex: zIndex * 125 }}
+      style={{ zIndex: zIndex * 100 }}
     >
       <div
         className="relative bg-white rounded-lg shadow-lg w-[90dvw] overflow-hidden flex flex-col h-fit max-h-[90dvh] "

@@ -10,6 +10,8 @@ interface Path {
 export const paths: Path[] = [
   { path: "admin/medicos", breadcrumb: "Medicos", href: "/admin" },
   { path: "admin/vacantes", breadcrumb: "Vacantes", href: "/admin" },
+  { path: "admin/sw/e/home", breadcrumb: "Editar Home", href: "/admin" },
+  { path: "admin/sw/e", breadcrumb: "Administrar Sitio Web", href: "/admin" },
   { path: "admin/", breadcrumb: "Admin Panel", href: "/admin" },
 ];
 
@@ -39,7 +41,7 @@ export const menuItems: SidebarOption[] = [
         name: "edit-about",
         label: "Editar Sobre Nosotros",
         href: "/admin/sw/e/about",
-      },    
+      },
     ],
   },
   {
@@ -60,5 +62,4 @@ export const menuItems: SidebarOption[] = [
     href: "/admin/perfil-usuario",
     icon: dynamic(() => import("lucide-react").then((mod) => mod.Home)),
   },
- 
 ];
