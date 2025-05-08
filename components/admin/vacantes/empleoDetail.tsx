@@ -1,141 +1,117 @@
 "use client";
 
-import React from "react";
 import Modal from "@/components/general/TailModal/TailModal";
-import { MedicoInterface } from "@/types/medico";
-
-// Utilidad para formatear hora en formato 12h
-function formatTime(time?: string): string {
-  if (!time) return "";
-  const [hours, minutes] = time.split(":");
-  const hour = Number.parseInt(hours, 10);
-
-  if (hour === 0) return `12${minutes !== "00" ? `:${minutes}` : ""}am`;
-  if (hour === 12) return `12${minutes !== "00" ? `:${minutes}` : ""}pm`;
-  if (hour > 12)
-    return `${hour - 12}${minutes !== "00" ? `:${minutes}` : ""}pm`;
-  return `${hour}${minutes !== "00" ? `:${minutes}` : ""}am`;
-}
-
-const diasMap: Record<keyof MedicoInterface["horario"], string> = {
-  lun: "Lunes",
-  mar: "Martes",
-  mier: "Miércoles",
-  jue: "Jueves",
-  vier: "Viernes",
-  sab: "Sábado",
-  dom: "Domingo",
-};
+import { OfertaLaboral } from "@/types/oferta";
+import { Briefcase, Calendar, ExternalLink } from "lucide-react";
 
 interface Props {
+  item: OfertaLaboral;
   open: boolean;
   onClose: () => void;
-  item: MedicoInterface;
 }
 
-const ViewEmpleoModal: React.FC<Props> = ({ open, onClose, item }) => {
+export default function DetalleVacanteModal({ item, open, onClose }: Props) {
   return (
     <Modal
-      title={``}
+      title="Detalle de Vacante"
+      icon={<Briefcase className="mr-2 h-5 w-5 text-sky-500" />}
       isOpen={open}
       setOpen={onClose}
       showActions={false}
-      maxWidth={500}
+      maxWidth={700}
     >
-      <div className="space-y-4 p-4 text-sm text-gray-700">
-        {item?.imagen && (
-          <div className="w-full flex justify-center">
+      <div className="space-y-4 pt-2 pb-4 px-4">
+        {/* Imagen */}
+        {item.imageUrl && (
+          <div className="flex justify-center">
             <img
-              src={item.imagen}
-              alt="Foto del médico"
-              className="w-32 h-32 rounded-full object-cover"
+              src={item.imageUrl}
+              alt="Imagen del cargo"
+              className="max-h-52 rounded border"
+              onError={(e) =>
+                ((e.target as HTMLImageElement).src = "/img/fallback.png")
+              }
             />
           </div>
         )}
 
+        {/* Información principal */}
         <div>
-          <strong>Nombre:</strong>{" "}
-          {`${item?.sufix ? item.sufix + " " : ""}${item?.nombre || ""} ${
-            item?.apellido || ""
-          }`}
+          <h2 className="text-xl font-bold text-gray-800">{item.title}</h2>
+          <p className="text-sm text-gray-500">{item.targetAudience}</p>
+
+          {/* Link de postulación */}
+          {item.applicationLink && (
+            <div className="flex items-center gap-2 text-sm mt-1">
+              <ExternalLink className="h-4 w-4 text-blue-500" />
+              <a
+                href={item.applicationLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline"
+              >
+                Ir al formulario de postulación
+              </a>
+            </div>
+          )}
         </div>
 
-        {item?.especialidad && (
-          <div>
-            <strong>Especialidad:</strong> {item.especialidad}
+        {/* Fechas */}
+        <div className="grid grid-cols-2 gap-4 text-sm text-gray-600">
+          <div className="flex items-center gap-2">
+            <Calendar className="h-4 w-4 text-gray-500" />
+            <span>
+              Inicio Postulación: <strong>{item.startDate|| "-"}</strong>
+            </span>
           </div>
+          <div className="flex items-center gap-2">
+            <Calendar className="h-4 w-4 text-gray-500" />
+            <span>
+              Fin Postulación: <strong>{item.endDate|| "-"}</strong>
+            </span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Calendar className="h-4 w-4 text-gray-500" />
+            <span>
+              Inicio Publicación: <strong>{item.startPostOn|| "-"}</strong>
+            </span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Calendar className="h-4 w-4 text-gray-500" />
+            <span>
+              Plazo: <strong>{item.deadline || "-"}</strong>
+            </span>
+          </div>
+        </div>
+
+        {/* Descripciones */}
+        {[
+          { label: "Descripción", value: item.description },
+          { label: "Habilidades Requeridas", value: item.requiredSkills },
+          { label: "Requisitos", value: item.requirements },
+          { label: "Nota Importante", value: item.importantNote },
+        ].map(
+          (section, idx) =>
+            section.value && (
+              <div key={idx}>
+                <h3 className="text-sm font-semibold text-gray-700">
+                  {section.label}
+                </h3>
+                <p className="text-sm text-gray-600 whitespace-pre-line">
+                  {section.value}
+                </p>
+              </div>
+            )
         )}
 
-        {item?.telefono && (
+        {/* Duración */}
+        {item.duration && (
           <div>
-            <strong>Teléfono:</strong> {item.telefono}
-          </div>
-        )}
-
-        {item?.consultorio && (
-          <div>
-            <strong>Consultorio:</strong> {item.consultorio}
-          </div>
-        )}
-
-        {item?.horario && (
-          <div>
-            <strong>Horario:</strong>
-            <ul className="list-disc list-inside mt-1">
-              {(Object.keys(diasMap) as (keyof typeof diasMap)[]).map((dia) => {
-                const horarioDia: any = item.horario?.[dia];
-                if (horarioDia?.start && horarioDia?.end) {
-                  return (
-                    <li key={dia}>
-                      {diasMap[dia]}: {formatTime(horarioDia.start)} a{" "}
-                      {formatTime(horarioDia.end)}
-                    </li>
-                  );
-                } else if (horarioDia?.start) {
-                  return (
-                    <li key={dia}>
-                      {diasMap[dia]}: desde {formatTime(horarioDia.start)}
-                    </li>
-                  );
-                } else if (horarioDia?.end) {
-                  return (
-                    <li key={dia}>
-                      {diasMap[dia]}: hasta {formatTime(horarioDia.end)}
-                    </li>
-                  );
-                }
-                return null;
-              })}
-            </ul>
-          </div>
-        )}
-
-        {item?.socialMedia && (
-          <div>
-            <strong>Redes Sociales:</strong>
-            <ul className="list-disc list-inside mt-1">
-              {Object.entries(item.socialMedia)
-                .filter(([_, val]) => val)
-                .map(([key, val]) => (
-                  <li key={key}>
-                    <span className="capitalize">{key}:</span>{" "}
-                    <a
-                      href={val}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      title={val}
-                      className="text-blue-600 underline line-clamp-1"
-                    >
-                      {val}
-                    </a>
-                  </li>
-                ))}
-            </ul>
+            <h3 className="text-sm font-semibold text-gray-700">Duración</h3>
+            <p className="text-sm text-gray-600">{item.duration}</p>
           </div>
         )}
       </div>
     </Modal>
   );
-};
-
-export default ViewEmpleoModal;
+}

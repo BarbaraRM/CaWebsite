@@ -1,5 +1,5 @@
 export interface OfertaLaboral {
-  id?: number;
+  _id?: string;
   title?: string;
   targetAudience?: string;
   startDate?: string;

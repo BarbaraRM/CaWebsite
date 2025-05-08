@@ -3,12 +3,10 @@
 import TableCustomeHandle, {
   TableCustomeHandleRef,
 } from "@/components/general/Tables/TableCustomeHandle/TableCustomeHandle";
-import { GeneralFilterValues } from "@/components/general/Tables/filters/FilterBtn";
-import { FiltersGeneralOptionsProps } from "@/components/general/Tables/filters/GenericFilterModal";
 import { TableTitles } from "@/components/general/Tables/interfaces/FetchParams";
 
 import { authFetch } from "@/hooks/auth-fetch";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import { toast } from "react-toastify";
 import { MedicoInterface } from "@/types/medico";
 import { AddDoctorCard } from "../admin/medicos/addDoctorCard";
@@ -24,16 +22,8 @@ const titleTable: TableTitles[] = [
   { label: "Actions", className: "!w-[150px]" },
 ];
 
-const fields = [
-  { key: "codigo", label: "Codigo" },
-  { key: "nombre", label: "Nombre" },
-  { key: "descripcion", label: "Descripcion" },
-];
-
 function MedicosPage() {
   const tablaRef = useRef<TableCustomeHandleRef>(null);
-  const [filtersOptions, setFiltersOptions] =
-    useState<FiltersGeneralOptionsProps>({});
   const [openNew, setOpenNew] = useState<boolean>(false);
   const [openDetail, setOpenDetail] = useState<boolean>(false);
 
@@ -41,7 +31,6 @@ function MedicosPage() {
   const [selectedRegistro, setSelectedRegistro] = useState<
     MedicoInterface | undefined
   >(undefined);
-  const [filters, setFilters] = useState<GeneralFilterValues | undefined>({});
 
   const onEdit = (item: MedicoInterface) => {
     setOpenNew(true);
@@ -63,9 +52,6 @@ function MedicosPage() {
     setSelectedRegistro(undefined);
   };
 
-  const applyFilters = () => {
-    tablaRef?.current?.refreshData();
-  };
 
   const onDelete = async (id: string) => {
     if (id) {
@@ -151,19 +137,6 @@ function MedicosPage() {
     }
   };
 
-  useEffect(() => {
-    const getDataSet = async () => {
-      setFiltersOptions({
-        visibles: [
-          { label: "Inactivo", value: "false" },
-          { label: "Activo", value: "true" },
-          { label: "Todos", value: undefined },
-        ],
-      });
-    };
-    getDataSet();
-  }, []);
-
   return (
     <div className="px-4 pb-4 pt-2 flex flex-col gap-3 overflow-hidden">
       <div className="flex-1 flex flex-col overflow-hidden">
@@ -172,9 +145,6 @@ function MedicosPage() {
           titles={titleTable}
           multiplicador={5}
           api_url={"/api/medicos/get-all"}
-          params={{
-            filters: filters,
-          }}
           containerClassName="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
           rowsPerPageOptions={[5, 10, 30]}
           searchName="products"

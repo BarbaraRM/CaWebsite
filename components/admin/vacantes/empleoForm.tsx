@@ -30,8 +30,6 @@ export default function EmpleadoForm({
   isOpen,
   onClose,
   refresh,
-  icon,
-  title,
 }: ModalProps) {
   const [sending, setSending] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
@@ -51,7 +49,7 @@ export default function EmpleadoForm({
     const keys = name.split(".");
 
     setFormData((prev: any) => {
-      let updated: any = { ...prev };
+      const updated: any = { ...prev };
       let pointer = updated;
 
       for (let i = 0; i < keys.length - 1; i++) {
@@ -68,33 +66,27 @@ export default function EmpleadoForm({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSending(true);
-    setErrorMsg(null); // limpiar errores previos
+    setErrorMsg(null);
 
     try {
-      const endpoint = item_id ? "/api/medicos/update" : "/api/medicos/new";
+      const endpoint = item_id ? "/api/vacantes/update" : "/api/vacantes/new";
       const payload = item_id ? { ...formData, id: item_id } : formData;
 
       const res = await fetch(endpoint, {
         method: item_id ? "PUT" : "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
 
-      const result = await res.json();
+      const data = await res.json();
 
-      if (!res.ok) throw new Error(result.error || "Error en el servidor");
+      if (!res.ok) throw new Error(data?.error || "Error en el servidor");
 
-      toast.success(
-        item_id ? "Médico actualizado con éxito" : "Médico creado con éxito"
-      );
-
-      onClose(); // cerrar modal
-      refresh(); // recargar datos
-    } catch (error: any) {
-      console.error("Error al guardar médico:", error.message);
-      setErrorMsg(`Error al ${item_id ? "editar" : "crear"} el médico`);
+      toast.success(item_id ? "Vacante actualizada" : "Vacante creada");
+      onClose();
+      refresh();
+    } catch (err: any) {
+      setErrorMsg(err.message || "Error al guardar la vacante");
     } finally {
       setSending(false);
     }
@@ -124,7 +116,7 @@ export default function EmpleadoForm({
         </div>
       )}
       <form id="form-vacante" onSubmit={handleSubmit} className="space-y-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-2 flex-1">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-1 flex-1">
           {/* First row */}
           <div className="flex-1 md:col-span-3">
             <SmallLabel htmlFor="title">
@@ -142,16 +134,32 @@ export default function EmpleadoForm({
           </div>
 
           <div className="flex-1 md:col-span-3">
-            <SmallLabel htmlFor="targetAudience">
-              A Quien va dirigido
+            <SmallLabel htmlFor="description">
+              Descripción de la postulación
+              <span className="text-red-500">*</span>
             </SmallLabel>
             <TextareaAutosize
-              id="targetAudience"
-              name="targetAudience"
-              value={formData?.targetAudience || ""}
+              id="description"
+              name="description"
+              value={formData?.description || ""}
+              required
               onChange={handleChange}
               placeholder="Escriba aqui..."
-              minRows={1}
+              minRows={2}
+            />
+          </div>
+
+          <div className="flex-1 md:col-span-3">
+            <SmallLabel htmlFor="description">
+              Enlace para postulación<span className="text-red-500">*</span>
+            </SmallLabel>
+            <input
+              id="applicationLink"
+              name="applicationLink"
+              value={formData?.applicationLink || ""}
+              onChange={handleChange}
+              placeholder="https://"
+              required
             />
           </div>
 
@@ -173,7 +181,7 @@ export default function EmpleadoForm({
           </div>
 
           <div className="flex-1">
-            <SmallLabel htmlFor="startDate">Fecha de Inicio</SmallLabel>
+            <SmallLabel htmlFor="startDate">Fecha de Inicio Postulación</SmallLabel>
             <input
               id="startDate"
               type="date"
@@ -184,7 +192,7 @@ export default function EmpleadoForm({
           </div>
 
           <div className="flex-1">
-            <SmallLabel htmlFor="endDate">Fecha de Fin</SmallLabel>
+            <SmallLabel htmlFor="endDate">Fecha de Fin Postulación</SmallLabel>
             <input
               id="endDate"
               type="date"
@@ -195,13 +203,13 @@ export default function EmpleadoForm({
           </div>
 
           <div className="flex-1 md:col-span-3">
-            <SmallLabel htmlFor="description">
-              Descripción de la postulación
+            <SmallLabel htmlFor="targetAudience">
+              A Quien va dirigido
             </SmallLabel>
             <TextareaAutosize
-              id="description"
-              name="description"
-              value={formData?.description || ""}
+              id="targetAudience"
+              name="targetAudience"
+              value={formData?.targetAudience || ""}
               onChange={handleChange}
               placeholder="Escriba aqui..."
               minRows={1}
@@ -209,130 +217,71 @@ export default function EmpleadoForm({
           </div>
 
           <div className="flex-1 md:col-span-3">
-            <SmallLabel htmlFor="description">
-              Descripción de la postulación
+            <SmallLabel htmlFor="requiredSkills">
+              Habilidades Requeridas
             </SmallLabel>
             <TextareaAutosize
-              id="description"
-              name="description"
-              value={formData?.description || ""}
+              id="requiredSkills"
+              name="requiredSkills"
+              value={formData?.requiredSkills || ""}
               onChange={handleChange}
               placeholder="Escriba aqui..."
-              minRows={1}
-            />
-          </div>
-
-          <div className="flex-1 md:col-span-3">
-            <SmallLabel htmlFor="description">
-              Descripción de la postulación
-            </SmallLabel>
-            <TextareaAutosize
-              id="description"
-              name="description"
-              value={formData?.description || ""}
-              onChange={handleChange}
-              placeholder="Escriba aqui..."
-              minRows={1}
-            />
-          </div>
-
-
-        </div>
-        {[
-          { name: "title", label: "Título" },
-          { name: "targetAudience", label: "Audiencia Objetivo" },
-          { name: "startDate", label: "Fecha de Inicio" },
-          { name: "endDate", label: "Fecha de Fin" },
-          { name: "deadline", label: "Plazo" },
-          { name: "duration", label: "Duración" },
-          { name: "startPostOn", label: "Fecha de Publicación" },
-        ].map(({ name, label }) => (
-          <div key={name}>
-            <label className="block text-sm font-semibold text-gray-700 mb-1">
-              {label}
-            </label>
-            <input
-              type="text"
-              name={name}
-              className="w-full border border-gray-300 rounded px-3 py-2 text-sm"
-              value={(formData as any)?.[name] || ""}
-              onChange={handleChange}
-            />
-          </div>
-        ))}
-
-        {/* Textareas */}
-        {[
-          { name: "description", label: "Descripción" },
-          { name: "requiredSkills", label: "Habilidades Requeridas" },
-          { name: "requirements", label: "Requisitos" },
-          { name: "importantNote", label: "Nota Importante" },
-        ].map(({ name, label }) => (
-          <div key={name}>
-            <label className="block text-sm font-semibold text-gray-700 mb-1">
-              {label}
-            </label>
-            <textarea
-              name={name}
-              rows={3}
-              className="w-full border border-gray-300 rounded px-3 py-2 text-sm"
-              value={formData?.[name] || ""}
-              onChange={handleChange}
-            />
-            <TextareaAutosize
-              id="message"
-              name="mensaje"
-              value={formData?.[name] || ""}
-              onChange={(e) => {
-                handleChange(e);
-              }}
-              required
-              placeholder="Escribe tu mensaje aquí..."
               minRows={2}
             />
           </div>
-        ))}
 
-        {/* Enlace de postulación */}
-        <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-1">
-            Link de Postulación
-          </label>
-          <input
-            type="url"
-            name="applicationLink"
-            className="w-full border border-gray-300 rounded px-3 py-2 text-sm"
-            value={formData?.applicationLink || ""}
-            onChange={handleChange}
-          />
-        </div>
-
-        {/* Imagen */}
-        <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-1">
-            URL de Imagen
-          </label>
-          <input
-            type="text"
-            name="imageUrl"
-            className="w-full border border-gray-300 rounded px-3 py-2 text-sm"
-            value={formData?.imageUrl || ""}
-            onChange={handleChange}
-          />
-        </div>
-
-        {formData?.imageUrl && (
-          <div className="flex justify-center py-2">
-            <img
-              src={formData.imageUrl}
-              alt="Vista previa"
-              className="max-h-48 border rounded object-contain"
-              onError={(e) => {
-                (e.target as HTMLImageElement).src = "/img/fallback.png";
-              }}
+          <div className="flex-1 md:col-span-3">
+            <SmallLabel htmlFor="requirements">Funciones principales</SmallLabel>
+            <TextareaAutosize
+              id="requirements"
+              name="requirements"
+              value={formData?.requirements || ""}
+              onChange={handleChange}
+              placeholder="Escriba aqui..."
+              minRows={2}
             />
           </div>
-        )}
+
+          <div className="flex-1 md:col-span-3">
+            <SmallLabel htmlFor="importantNote">Nota Importante</SmallLabel>
+            <TextareaAutosize
+              id="importantNote"
+              name="importantNote"
+              value={formData?.importantNote || ""}
+              onChange={handleChange}
+              placeholder="Escriba aqui..."
+              minRows={2}
+            />
+          </div>
+        </div>
+        <hr />
+        <div className="grid grid-cols-1 gap-2 flex-1">
+          {/* Imagen */}
+          <div>
+            <SmallLabel htmlFor="imageUrl">URL de Imagen</SmallLabel>
+            <input
+              type="text"
+              name="imageUrl"
+              id="imageUrl"
+              value={formData?.imageUrl || ""}
+              onChange={handleChange}
+              placeholder="https://"
+            />
+          </div>
+
+         {formData?.imageUrl && (
+            <div className="flex justify-center py-2">
+              <img
+                src={formData?.imageUrl}
+                alt="Vista previa"
+                className="min-h-52 w-full max-h-52 border rounded object-contain"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src = "/img/fallback.png";
+                }}
+              />
+            </div>
+          )}
+        </div>
       </form>
     </Modal>
   );
