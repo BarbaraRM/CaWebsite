@@ -161,7 +161,7 @@ export function DoctorCard({
         ) : (
           <DeleteButton
             htmlTitle="Mostrar médico en Sitio Web"
-            onAccept={(e) => {
+            onActivate={(e) => {
               e?.preventDefault();
               onActivate(item?._id || "");
             }}

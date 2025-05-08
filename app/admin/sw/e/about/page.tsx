@@ -1,5 +1,5 @@
 "use client";
-import HomeSectionsAdmin from "@/components/adminPages/HomeAdminPage";
+import AboutSectionsAdmin from "@/components/adminPages/AboutAdminPage";
 import React from "react";
 import { useState } from "react";
 
@@ -8,8 +8,7 @@ export default function AdminHomePage() {
 
   return (
     <div className="p-6 ">
-      
-      <HomeSectionsAdmin sections={sections} onChange={setSections} />
+      <AboutSectionsAdmin sections={sections} onChange={setSections} />
     </div>
   );
 }

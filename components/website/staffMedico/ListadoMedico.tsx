@@ -71,7 +71,6 @@ export function processSchedule(horario: MedicoInterface["horario"]): string[] {
   });
 }
 
-
 function ListadoMedico({
   medicos,
 }: {
@@ -101,21 +100,20 @@ function ListadoMedico({
                   className="object-cover"
                 />
               </div>
-              <h3 className="text-[#2e2e2e] font-bold text-xl">
+              <h3 className="text-[#2e2e2e] font-bold text-xl text-center">
                 {doctor.sufix} {doctor.nombre} {doctor.apellido}
               </h3>
               <p className="text-[#f29200] font-medium mb-2">
                 {doctor.especialidad}
               </p>
 
-              <div className="text-[#656575] text-sm mb-4">
-                <p className="font-medium">Atención:</p>
-                {formattedSchedules.map((schedule, idx) => (
-                  <p key={idx} className="text-center">
-                    {schedule}
+              {formattedSchedules?.length > 0 && (
+                <div className="text-[#656575] text-sm mb-1 flex flex-row">
+                  <p className="leading-tight">
+                    {`Atención: ${formattedSchedules?.join(", ")}`}
                   </p>
-                ))}
-              </div>
+                </div>
+              )}
 
               <div className="w-full border-t border-gray-200 pt-4 mt-auto">
                 <div className="flex justify-center space-x-4">

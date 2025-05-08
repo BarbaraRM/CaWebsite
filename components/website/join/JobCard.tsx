@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import { Search } from "lucide-react";
 import { JobModal } from "./JobModal";
 import { OfertaLaboral } from "@/types/oferta";
@@ -24,14 +23,13 @@ export function JobCard({ job }: JobCardProps) {
         className="bg-white rounded-lg shadow-md overflow-hidden"
       >
         <div
-          className="h-48 relative group cursor-pointer"
+          className="h-52 relative group cursor-pointer overflow-hidden"
           onClick={() => setIsModalOpen(true)}
         >
-          <Image
+          <img
             src={job?.imageUrl || ""}
             alt={`${job.title} - imagen`}
-            fill
-            className="object-cover"
+            className="object-cover w-full object-top h-full "
           />
           <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
             <div className="bg-[#f29200] p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">

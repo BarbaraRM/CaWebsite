@@ -93,7 +93,7 @@ export function EmpleoCard({
         ) : (
           <DeleteButton
             htmlTitle="Mostrar vacante en Sitio Web"
-            onAccept={(e) => {
+            onActivate={(e) => {
               e?.preventDefault();
               onActivate(item?._id || "");
             }}

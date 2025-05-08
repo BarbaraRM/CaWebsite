@@ -56,10 +56,10 @@ export const menuItems: SidebarOption[] = [
     icon: dynamic(() => import("lucide-react").then((mod) => mod.Briefcase)),
     href: "/admin/vacantes",
   },
-  {
-    name: "perfil-usuario",
-    label: "Mi perfil",
-    href: "/admin/perfil-usuario",
-    icon: dynamic(() => import("lucide-react").then((mod) => mod.Home)),
-  },
+  // {
+  //   name: "perfil-usuario",
+  //   label: "Mi perfil",
+  //   href: "/admin/perfil-usuario",
+  //   icon: dynamic(() => import("lucide-react").then((mod) => mod.Home)),
+  // },
 ];
