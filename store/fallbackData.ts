@@ -398,12 +398,12 @@ export const FALLBACK_SOMOS_DATA: QuienessomosData = {
   valores:
     "• Compromiso con tu salud.\n• Cercanía y trato humano.\n• Excelencia en cada servicio.\n• Innovación en los cuidados médicos",
   gallery_photos: [
-    "https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image.jpg",
-    "https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-2.jpg",
-    "https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-1.jpg",
-    "https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-3.jpg",
-    "https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-4.jpg",
-    "https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-5.jpg",
+    "https://img.freepik.com/foto-gratis/joven-medico-apoyando-su-paciente_1098-2237.jpg?ga=GA1.1.1340927718.1729821246&semt=ais_hybrid&w=740",
+    "/bg/gal1.jpeg",
+    "/bg/gal2.jpeg",
+    "/bg/gal3.jpeg",
+    "/bg/gal4.jpeg",
+    "/bg/gal5.jpeg",
     "https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-6.jpg",
     "https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-7.jpg",
     "https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-8.jpg",

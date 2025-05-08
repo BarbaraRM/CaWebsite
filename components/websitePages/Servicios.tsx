@@ -102,7 +102,7 @@ export default function Servicios({
                     </li>
                   </ul>
                   <Link
-                    href="#contacto"
+                    href="/contacto"
                     className="inline-flex items-center text-primary-500 font-medium hover:text-primary-600"
                   >
                     Solicitar información
@@ -146,7 +146,7 @@ export default function Servicios({
                     </li>
                   </ul>
                   <Link
-                    href="#contacto"
+                    href="/contacto"
                     className="inline-flex items-center text-primary-500 font-medium hover:text-primary-600"
                   >
                     Solicitar información
@@ -191,7 +191,7 @@ export default function Servicios({
                     </li>
                   </ul>
                   <Link
-                    href="#contacto"
+                    href="/contacto"
                     className="inline-flex items-center text-primary-500 font-medium hover:text-primary-600"
                   >
                     Solicitar información
@@ -235,7 +235,7 @@ export default function Servicios({
                     </li>
                   </ul>
                   <Link
-                    href="#contacto"
+                    href="/contacto"
                     className="inline-flex items-center text-primary-500 font-medium hover:text-primary-600"
                   >
                     Solicitar información
@@ -279,7 +279,7 @@ export default function Servicios({
                     </li>
                   </ul>
                   <Link
-                    href="#contacto"
+                    href="/contacto"
                     className="inline-flex items-center text-primary-500 font-medium hover:text-primary-600"
                   >
                     Solicitar información
@@ -323,7 +323,7 @@ export default function Servicios({
                     </li>
                   </ul>
                   <Link
-                    href="#contacto"
+                    href="/contacto"
                     className="inline-flex items-center text-primary-500 font-medium hover:text-primary-600"
                   >
                     Solicitar información
@@ -426,12 +426,6 @@ export default function Servicios({
                     </div>
                   </div>
                 </div>
-                <Link
-                  href="#contacto"
-                  className="bg-primary-500 hover:bg-primary-600 text-white font-medium px-6 py-3 rounded-lg inline-block transition-colors"
-                >
-                  Conocer más
-                </Link>
               </div>
               <div className="relative h-[400px] md:h-[500px] rounded-xl overflow-hidden">
                 <img
@@ -523,7 +517,7 @@ export default function Servicios({
                   </div>
                 </div>
                 <Link
-                  href="#contacto"
+                  href="/contacto"
                   className="bg-primary-500 hover:bg-primary-600 text-white font-medium px-6 py-3 rounded-lg inline-block transition-colors"
                 >
                   Agendar estudio
@@ -590,7 +584,7 @@ export default function Servicios({
                 <div className="flex items-center">
                   <Phone className="h-6 w-6 text-primary-400 mr-3" />
                   <span className="text-xl font-bold">
-                    Emergencias: (123) 456-7890
+                    Emergencias: (+593) 0958980367
                   </span>
                 </div>
               </div>
