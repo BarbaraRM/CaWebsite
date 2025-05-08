@@ -323,7 +323,7 @@ export const FALLBACK_MEDICOS: MedicoInterface[] = [
 
 export const FALLBACK_TRABAJOS: OfertaLaboral[] = [
   {
-    id: 1,
+    _id: "1",
     title: "Enfermero/a",
     deadline: "15/02/2025",
     imageUrl:"/ofertas/enfermero.png",
@@ -343,7 +343,7 @@ export const FALLBACK_TRABAJOS: OfertaLaboral[] = [
       "Se valorará positivamente formación adicional en emergencias y catástrofes",
   },
   {
-    id: 2,
+    _id: "2",
     title: "Enfermero/a",
     deadline: "15/02/2025",
     imageUrl:"/ofertas/enfermero.png",
@@ -363,7 +363,7 @@ export const FALLBACK_TRABAJOS: OfertaLaboral[] = [
       "Se valorará positivamente formación adicional en emergencias y catástrofes",
   },
   {
-    id: 3,
+    _id: "3",
     title: "Enfermero/a",
     deadline: "15/02/2025",
     imageUrl:"/ofertas/enfermero.png",

@@ -1,25 +1,11 @@
 "use client"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
+import { OfertaLaboral } from "@/types/oferta"
 import { Calendar, Info } from "lucide-react"
 import Link from "next/link"
 
-export interface JobDetails {
-  id: number
-  title: string
-  deadline: string
-  description: string
-  targetAudience: string
-  duration: string
-  startDate: string
-  endDate: string
-  requiredSkills: string
-  requirements: string
-  applicationLink: string
-  importantNote: string
-}
-
 interface JobModalProps {
-  job: JobDetails
+  job: OfertaLaboral
   isOpen: boolean
   onClose: () => void
 }
