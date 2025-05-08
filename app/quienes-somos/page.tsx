@@ -9,7 +9,7 @@ async function getData(): Promise<any> {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin-panel/about`, {
       ...(isDev
         ? { cache: "no-store" }
-        : { cache: "no-store" }
+        : { next: { revalidate: 60 } }
       )//{ next: { revalidate: 60 } }),//60
     });
     if (!res.ok) throw new Error("Respuesta no OK");
