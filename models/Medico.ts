@@ -6,6 +6,7 @@ export interface MedicoInterface extends Document {
   apellido: string;
   especialidad: string;
   visible?: boolean;
+  horarioFlexible?: boolean;
   horario: {
     lun?: { start?: string; end?: string };
     mar?: { start?: string; end?: string };
@@ -32,6 +33,7 @@ const MedicoSchema = new Schema<MedicoInterface>(
     apellido: { type: String, required: true },
     especialidad: { type: String, required: true },
     visible: { type: Boolean, default: true },
+    horarioFlexible: { type: Boolean, default: false },
     horario: {
       lun: { start: String, end: String },
       mar: { start: String, end: String },
