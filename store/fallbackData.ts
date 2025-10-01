@@ -421,34 +421,34 @@ export const FALLBACK_SOMOS_DATA: QuienessomosData = {
 };
 
 export const FALLBACK_MEDICOS: MedicoInterface[] = [
-  {
-    sufix: "Dr",
-    nombre: "Cecilia",
-    apellido: "Aguilar",
-    especialidad: "Cardiología",
-    horarioFlexible: true,
-    horario: {
-      lun: { start: "08:00", end: "17:00" },
-      mar: { start: "08:00", end: "17:00" },
-      mier: { start: "08:00", end: "17:00" },
-      jue: { start: "08:00", end: "17:00" },
-      vier: { start: "08:00", end: "17:00" },
-    },
-    imagen: "/doctors/dra_ceciliaaguilara.jpg",
-  },
-  {
-    sufix: "Dra",
-    nombre: "Susana",
-    apellido: "Aguilar",
-    especialidad: "Cardiología",
-    horarioFlexible: true,
-    horario: {
-      lun: { start: "08:00", end: "17:00" },
-      mier: { start: "08:00", end: "17:00" },
-      vier: { start: "08:00", end: "17:00" },
-    },
-    imagen: "/doctors/Dra_SusanaAguilar.jpg",
-  }
+  // {
+  //   sufix: "Dr",
+  //   nombre: "Cecilia",
+  //   apellido: "Aguilar",
+  //   especialidad: "Cardiología",
+  //   horarioFlexible: true,
+  //   horario: {
+  //     lun: { start: "08:00", end: "17:00" },
+  //     mar: { start: "08:00", end: "17:00" },
+  //     mier: { start: "08:00", end: "17:00" },
+  //     jue: { start: "08:00", end: "17:00" },
+  //     vier: { start: "08:00", end: "17:00" },
+  //   },
+  //   imagen: "/doctors/dra_ceciliaaguilara.jpg",
+  // },
+  // {
+  //   sufix: "Dra",
+  //   nombre: "Susana",
+  //   apellido: "Aguilar",
+  //   especialidad: "Cardiología",
+  //   horarioFlexible: true,
+  //   horario: {
+  //     lun: { start: "08:00", end: "17:00" },
+  //     mier: { start: "08:00", end: "17:00" },
+  //     vier: { start: "08:00", end: "17:00" },
+  //   },
+  //   imagen: "/doctors/Dra_SusanaAguilar.jpg",
+  // }
 ];
 
 export const FALLBACK_TRABAJOS: OfertaLaboral[] = [
