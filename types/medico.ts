@@ -7,6 +7,7 @@ export interface MedicoInterface {
   visible?: boolean;
   consultorio?: string;
   telefono?: string;
+  horarioFlexible?:boolean;
   horario?: {
     lun?: { start?: string; end?: string };
     mar?: { start?: string; end?: string };

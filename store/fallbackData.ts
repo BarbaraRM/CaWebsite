@@ -426,6 +426,7 @@ export const FALLBACK_MEDICOS: MedicoInterface[] = [
     nombre: "Cecilia",
     apellido: "Aguilar",
     especialidad: "Cardiología",
+    horarioFlexible: true,
     horario: {
       lun: { start: "08:00", end: "17:00" },
       mar: { start: "08:00", end: "17:00" },
@@ -440,97 +441,14 @@ export const FALLBACK_MEDICOS: MedicoInterface[] = [
     nombre: "Susana",
     apellido: "Aguilar",
     especialidad: "Cardiología",
+    horarioFlexible: true,
     horario: {
       lun: { start: "08:00", end: "17:00" },
       mier: { start: "08:00", end: "17:00" },
       vier: { start: "08:00", end: "17:00" },
     },
     imagen: "/doctors/Dra_SusanaAguilar.jpg",
-  },
-  {
-    sufix: "Dr",
-    nombre: "Cecilia",
-    apellido: "Aguilar",
-    especialidad: "Cardiología",
-    horario: {
-      lun: { start: "08:00", end: "17:00" },
-      mar: { start: "08:00", end: "17:00" },
-      mier: { start: "08:00", end: "17:00" },
-      jue: { start: "08:00", end: "17:00" },
-      vier: { start: "08:00", end: "17:00" },
-    },
-    imagen: "/doctors/dra_ceciliaaguilara.jpg",
-  },
-  {
-    sufix: "Dra",
-    nombre: "Susana",
-    apellido: "Aguilar",
-    especialidad: "Cardiología",
-    horario: {
-      lun: { start: "08:00", end: "17:00" },
-      mier: { start: "08:00", end: "17:00" },
-      vier: { start: "08:00", end: "17:00" },
-    },
-    imagen: "/doctors/Dra_SusanaAguilar.jpg",
-  },
-  {
-    sufix: "Dr",
-    nombre: "Cecilia",
-    apellido: "Aguilar",
-    especialidad: "Cardiología",
-    horario: {
-      lun: { start: "08:00", end: "17:00" },
-      mar: { start: "08:00", end: "17:00" },
-      mier: { start: "08:00", end: "17:00" },
-      jue: { start: "08:00", end: "17:00" },
-      vier: { start: "08:00", end: "17:00" },
-    },
-    imagen: "/doctors/dra_ceciliaaguilara.jpg",
-  },
-  {
-    sufix: "Dra",
-    nombre: "Susana",
-    apellido: "Aguilar",
-    especialidad: "Cardiología",
-    horario: {
-      lun: { start: "08:00", end: "17:00" },
-      mier: { start: "08:00", end: "17:00" },
-      vier: { start: "08:00", end: "17:00" },
-    },
-    imagen: "/doctors/Dra_SusanaAguilar.jpg",
-  },
-  {
-    sufix: "Dr",
-    nombre: "Cecilia",
-    apellido: "Aguilar",
-    especialidad: "Cardiología",
-    horario: {
-      lun: { start: "08:00", end: "17:00" },
-      mar: { start: "08:00", end: "17:00" },
-      mier: { start: "08:00", end: "17:00" },
-      jue: { start: "08:00", end: "17:00" },
-      vier: { start: "08:00", end: "17:00" },
-    },
-    imagen: "/doctors/dra_ceciliaaguilara.jpg",
-    socialMedia: {
-      facebook: "https://www.facebook.com/drasusanaaguilar/?locale=es_LA",
-      instagram: "https://www.instagram.com/drasusanaaguilar/?hl=es",
-      linkedin: "",
-      tiktok: "",
-    },
-  },
-  {
-    sufix: "Dra",
-    nombre: "Susana",
-    apellido: "Aguilar",
-    especialidad: "Cardiología",
-    horario: {
-      lun: { start: "08:00", end: "17:00" },
-      mier: { start: "08:00", end: "17:00" },
-      vier: { start: "08:00", end: "17:00" },
-    },
-    imagen: "/doctors/Dra_SusanaAguilar.jpg",
-  },
+  }
 ];
 
 export const FALLBACK_TRABAJOS: OfertaLaboral[] = [

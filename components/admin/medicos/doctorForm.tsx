@@ -34,6 +34,7 @@ export default function DoctorForm({
 }: ModalProps) {
   const [sending, setSending] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
 
   const [formData, setFormData] = useState<MedicoInterface | undefined>({
     visible: true,
@@ -106,8 +107,8 @@ export default function DoctorForm({
       <Modal
         title={
           item_id
-            ? title?.new || MODAL_TITLE?.new
-            : title?.edit || MODAL_TITLE?.edit
+            ? title?.edit || MODAL_TITLE?.edit
+            : title?.new || MODAL_TITLE?.new
         }
         icon={icon || <FilePlus2 className="mr-2 h-5 w-5 text-sky-500" />}
         isOpen={isOpen}
@@ -208,10 +209,7 @@ export default function DoctorForm({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-2">
             {/* Fourth row */}
             <div>
-              <SmallLabel htmlFor="consultorio">
-                Consultorio
-                <span className="text-red-500">*</span>
-              </SmallLabel>
+              <SmallLabel htmlFor="consultorio">Consultorio</SmallLabel>
               <input
                 type="text"
                 id="consultorio"
@@ -219,7 +217,6 @@ export default function DoctorForm({
                 placeholder="Ex: 104"
                 onChange={handleChange}
                 value={formData?.consultorio || ""}
-                required
               />
             </div>
             <div>
@@ -260,57 +257,84 @@ export default function DoctorForm({
             Agregue los horarios de atención por día, en caso de no atender un
             día solo deje en blanco.
           </p>
-          <div className="grid grid-cols-1 gap-y-3">
-            {[
-              { key: "lun", label: "Lunes" },
-              { key: "mar", label: "Martes" },
-              { key: "mier", label: "Miércoles" },
-              { key: "jue", label: "Jueves" },
-              { key: "vier", label: "Viernes" },
-              { key: "sab", label: "Sábado" },
-              { key: "dom", label: "Domingo" },
-            ].map(({ key, label }) => (
-              <div key={key} className="grid grid-cols-3 items-center gap-x-4">
-                <SmallLabel className="col-span-1">{label}</SmallLabel>
-                <input
-                  type="time"
-                  name={`${key}-start`}
-                  className="col-span-1"
-                  value={formData?.horario?.[key]?.start || ""}
-                  onChange={(e) =>
+
+          <div className="mb-4">
+            <label className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                checked={formData?.horarioFlexible || false}
+                onChange={(e) => {
+                  if (e.target.checked) {
+                    setShowConfirmModal(true);
+                  } else {
                     setFormData((prev) => ({
                       ...prev,
-                      horario: {
-                        ...prev?.horario,
-                        [key]: {
-                          ...prev?.horario?.[key],
-                          start: e.target.value,
-                        },
-                      },
-                    }))
+                      horarioFlexible: false,
+                    }));
                   }
-                />
-                <input
-                  type="time"
-                  name={`${key}-end`}
-                  className="col-span-1"
-                  value={formData?.horario?.[key]?.end || ""}
-                  onChange={(e) =>
-                    setFormData((prev) => ({
-                      ...prev,
-                      horario: {
-                        ...prev?.horario,
-                        [key]: {
-                          ...prev?.horario?.[key],
-                          end: e.target.value,
-                        },
-                      },
-                    }))
-                  }
-                />
-              </div>
-            ))}
+                }}
+              />
+              <span className="text-sm">Consulta solo bajo agenda</span>
+            </label>
           </div>
+          {!formData?.horarioFlexible && (
+            <div className="grid grid-cols-1 gap-y-3">
+              {[
+                { key: "lun", label: "Lunes" },
+                { key: "mar", label: "Martes" },
+                { key: "mier", label: "Miércoles" },
+                { key: "jue", label: "Jueves" },
+                { key: "vier", label: "Viernes" },
+                { key: "sab", label: "Sábado" },
+                { key: "dom", label: "Domingo" },
+              ].map(({ key, label }) => (
+                <div
+                  key={key}
+                  className="grid grid-cols-3 items-center gap-x-4"
+                >
+                  <SmallLabel className="col-span-1">{label}</SmallLabel>
+                  <input
+                    type="time"
+                    name={`${key}-start`}
+                    className="col-span-1"
+                    value={formData?.horario?.[key]?.start || ""}
+                    disabled={formData?.horarioFlexible}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        horario: {
+                          ...prev?.horario,
+                          [key]: {
+                            ...prev?.horario?.[key],
+                            start: e.target.value,
+                          },
+                        },
+                      }))
+                    }
+                  />
+                  <input
+                    type="time"
+                    name={`${key}-end`}
+                    className="col-span-1"
+                    value={formData?.horario?.[key]?.end || ""}
+                    disabled={formData?.horarioFlexible}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        horario: {
+                          ...prev?.horario,
+                          [key]: {
+                            ...prev?.horario?.[key],
+                            end: e.target.value,
+                          },
+                        },
+                      }))
+                    }
+                  />
+                </div>
+              ))}
+            </div>
+          )}
 
           {/* Divider */}
           <div className="border-t border-[#e5e7eb] my-6"></div>
@@ -398,6 +422,29 @@ export default function DoctorForm({
             </div>
           </div>
         </form>
+      </Modal>
+
+      {/* Modal de confirmación */}
+      <Modal
+        title="Confirmar Horario Flexible"
+        isOpen={showConfirmModal}
+        setOpen={() => setShowConfirmModal(false)}
+        showActions={true}
+        maxWidth={400}
+        saveText="Ok, continuar"
+        onSave={() => {
+          setFormData((prev) => ({
+            ...prev,
+            horarioFlexible: true,
+            horario: {},
+          }));
+          setShowConfirmModal(false);
+        }}
+        onClose={() => setShowConfirmModal(false)}
+      >
+        <p className="text-sm text-gray-600">
+          Se borrarán los horarios configurados. ¿Desea continuar?
+        </p>
       </Modal>
     </>
   );

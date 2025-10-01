@@ -32,8 +32,8 @@ const Modal: React.FC<ModalProps> = ({
   maxWidth = 600,
   formId,
   saveDisabled = false,
-  saveText = "Save",
-  cancelText = "Cancel",
+  saveText = "Guardar",
+  cancelText = "Cancelar",
   useSubmit
 }) => {
   if (!isOpen) return null;

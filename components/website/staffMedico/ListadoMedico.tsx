@@ -93,7 +93,7 @@ function ListadoMedico({
             >
               <div className="w-32 h-32 rounded-full overflow-hidden mb-4">
                 <Image
-                  src={doctor.imagen || "/placeholder.svg"}
+                  src={doctor.imagen || "/doctors/default.png"}
                   alt={`${doctor.sufix} ${doctor.nombre} ${doctor.apellido}`}
                   width={128}
                   height={128}
@@ -106,7 +106,13 @@ function ListadoMedico({
               <p className="text-[#f29200] font-medium mb-2">
                 {doctor.especialidad}
               </p>
-
+              {doctor?.horarioFlexible && (
+                <div className="text-[#656575] text-sm mb-1 flex flex-row text-center">
+                  <p className="leading-tight whitespace-pre-line">
+                    {`Atiención mediante citas\n programadas`}
+                  </p>
+                </div>
+              )}
               {formattedSchedules?.length > 0 && (
                 <div className="text-[#656575] text-sm mb-1 flex flex-row">
                   <p className="leading-tight">
