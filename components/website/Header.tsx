@@ -19,6 +19,8 @@ const navItems:any = [
   // },
   { name: "Trabaja con Nosotros", href: "/trabaja-con-nosotros" },
   { name: "Contáctanos", href: "/contacto" },
+  // { name: "Resultados en línea", href: "/contacto" },
+
 ];
 
 export default function Header() {
